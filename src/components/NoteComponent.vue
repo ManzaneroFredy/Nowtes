@@ -1,5 +1,5 @@
 <template>
-  <v-sheet rounded="xl" class="w-100">
+  <v-sheet rounded="xl" class="w-auto">
     <div class="w-50 mr-16 ml-5 mt-2">
       <h2 class="title mb-4">{{ props.title }}</h2>
       <p class="title">
@@ -23,9 +23,9 @@
         </v-sheet>
       </div>
     </div>
-    <div class="d-flex flex-wrap ml-6 mt-2">
-      <div class="w-100 row"><h2 class="title">Acción</h2></div>
-      <div class="d-flex">
+    <div class="d-flex flex-wrap ml-2 mt-2">
+      <div class="w-100"><h2 class="title">Acción</h2></div>
+      <div class="mt-n3">
         <v-btn
           class="mr-2"
           variant="text"
@@ -55,7 +55,7 @@ const props = defineProps({
 
 <style scoped lang="scss">
 .note {
-  width: 100vh;
+  width: 1vh;
 }
 
 .title {

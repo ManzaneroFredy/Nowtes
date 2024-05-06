@@ -4,13 +4,16 @@
       <h1 class="w-100 justify-start">Pendientes</h1>
       <v-btn class="btn-new-note" prepend-icon="mdi-plus">Nueva nota</v-btn>
     </div>
-    <div v-for="note in mockData" :key="note.title">
-      <NoteComponent
-        :title="note.title"
-        :substract="note.substract"
-        class="d-flex align-self-start ml-4"
-      ></NoteComponent>
-    </div>
+    <v-virtual-scroll class="scroll-container" :items="mockData">
+      <template v-slot:default="{ item }">
+        <NoteComponent
+          :key="item.title"
+          :title="item.title"
+          :substract="item.substract"
+          class="d-flex align-self-start ml-4 my-2"
+        ></NoteComponent>
+      </template>
+    </v-virtual-scroll>
   </v-container>
 </template>
 
@@ -23,6 +26,31 @@ interface Note {
 }
 
 const mockData: Array<Note> = [
+  {
+    title: "title 1",
+    substract:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
+  },
+  {
+    title: "title 1",
+    substract:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
+  },
+  {
+    title: "title 1",
+    substract:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
+  },
+  {
+    title: "title 1",
+    substract:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
+  },
+  {
+    title: "title 1",
+    substract:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
+  },
   {
     title: "title 1",
     substract:
@@ -53,5 +81,10 @@ const mockData: Array<Note> = [
 .btn-new-note {
   background-color: $dark-bg;
   color: $light-font-title;
+}
+
+.scroll-container {
+  display: flex;
+  height: 80vh;
 }
 </style>

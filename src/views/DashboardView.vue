@@ -4,7 +4,8 @@
     <div class="d-flex flex-row">
       <DashboardSideBarComponent></DashboardSideBarComponent>
       <!-- <SettingsCommponent></SettingsCommponent> -->
-      <HomePageComponent></HomePageComponent>
+      <!-- <HomePageComponent></HomePageComponent> -->
+      <NoteCompleteDetailsComponent></NoteCompleteDetailsComponent>
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@ import DashboardSideBarComponent from "@/components/DashboardSideBarComponent.vu
 import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue";
 import SettingsCommponent from "@/components/SettingsComponent.vue";
 import HomePageComponent from "@/components/HomePageComponent.vue";
+import NoteCompleteDetailsComponent from "@/components/NoteCompleteDetailsComponent.vue";
 </script>
 
 <style scoped lang="scss">

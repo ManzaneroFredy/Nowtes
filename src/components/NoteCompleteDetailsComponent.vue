@@ -1,7 +1,8 @@
 <template>
   <v-container>
-    <div class="title-page ml-4 mt-4 mb-4">
-      <v-btn icon="mdi-chevron-left" variant="text">Nota #{{ note.id }} </v-btn>
+    <div class="title-page ml-4 mt-4 mb-4 d-flex flex-wrap align-center">
+      <v-btn icon="mdi-chevron-left" variant="text" size="large"></v-btn>
+      <h1>Nota #{{ note.id }}</h1>
     </div>
     <v-sheet
       class="d-flex flex-column justify-start p-1 setting-container"
@@ -30,7 +31,7 @@
 <script lang="ts" setup>
 import Note from "@/note/note";
 
-const note = {
+const note: Note = {
   id: 1,
   title: "title 1",
   body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam aliquam aliquid eaque sint eos laudantium quidem dolore, repellendus eius qui eligendi porro magni impedit facilis, id eveniet, eum praesentium. Non! ",
