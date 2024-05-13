@@ -3,13 +3,13 @@
 ## Project setup
 
 ```
-npm install
+npm install --force
 ```
 
 ### Compiles and hot-reloads for development
 
 ```
-npm serve
+npm run serve
 ```
 
 ### Compiles and minifies for production
