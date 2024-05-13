@@ -10,7 +10,7 @@
       <div class="w-25 d-flex flex-column mr-3 title">
         <h2 class="ml-4 mb-3 align-center">Fecha</h2>
         <v-sheet rounded class="align-center deadline d-flex">
-          <p class="ml-4">30/04/23</p>
+          <p class="ml-4">{{ props.endline }}</p>
         </v-sheet>
       </div>
       <div class="w-25 d-flex flex-column title">
@@ -19,7 +19,7 @@
           rounded
           class="justify-center align-center deadline d-flex ml-12"
         >
-          <p class="justify-center">En progreso</p>
+          <p class="justify-center">{{ props.status }}</p>
         </v-sheet>
       </div>
     </div>
@@ -47,6 +47,14 @@ const props = defineProps({
     required: true,
   },
   substract: {
+    type: String,
+    required: true,
+  },
+  endline: {
+    type: String,
+    required: true,
+  },
+  status: {
     type: String,
     required: true,
   },

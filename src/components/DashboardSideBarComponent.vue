@@ -13,15 +13,30 @@
     <v-container
       class="d-flex flex-column flex-wrap ga-7 option-container h-50 justify-center"
     >
-      <v-btn variant="plain" size="x-large" :ripple="false">
+      <v-btn
+        variant="plain"
+        size="x-large"
+        :ripple="false"
+        @click="$emit('showInitComponent', true, false, false)"
+      >
         <h3>Inicio</h3>
       </v-btn>
       <v-divider></v-divider>
-      <v-btn variant="plain" size="x-large" :ripple="false">
+      <v-btn
+        variant="plain"
+        size="x-large"
+        :ripple="false"
+        @click="$emit('showHistorialComponent', false, true, false)"
+      >
         <h3>Historial</h3>
       </v-btn>
       <v-divider></v-divider>
-      <v-btn variant="plain" size="x-large" :ripple="false">
+      <v-btn
+        variant="plain"
+        size="x-large"
+        :ripple="false"
+        @click="$emit('showPreferenceComponent', false, false, true)"
+      >
         <h3>Preferencias</h3>
       </v-btn>
     </v-container>

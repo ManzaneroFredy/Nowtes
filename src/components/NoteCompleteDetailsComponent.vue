@@ -1,35 +1,65 @@
 <template>
   <v-container>
-    <div class="title-page ml-4 mt-4 mb-4 d-flex flex-wrap align-center">
+    <div class="title-page ml-4 mt-4 mb-4 d-flex align-center">
       <v-btn icon="mdi-chevron-left" variant="text" size="large"></v-btn>
-      <h1>Nota #{{ note.id }}</h1>
+      <h1 class="">Nota #{{ note.id }}</h1>
+      <div class="d-flex ml-12 ga-6 justify-end">
+        <v-btn
+          class="delete-btn"
+          variant="flat"
+          prepend-icon="mdi-trash-can"
+          rounded="lg"
+          >borrar</v-btn
+        >
+        <v-btn
+          class="edit-btn"
+          rounded="lg"
+          prepend-icon="mdi-pencil"
+          variant="flat"
+          >Editar</v-btn
+        >
+      </div>
     </div>
     <v-sheet
       class="d-flex flex-column justify-start p-1 setting-container"
       rounded
     >
-      <h3 class="pt-4 ml-9">Interfaz</h3>
-      <h4 class="pt-12 ml-9"><b>Tema oscuro</b></h4>
-      <v-switch class="ml-9" inset label="Desactivado"></v-switch>
-      <v-select
-        class="w-25 ml-9"
-        label="Método para priorizar las tareas"
-        variant="outlined"
-        :items="['Prioridad', 'Fecha']"
-      ></v-select>
-      <h4 class="mt-4 ml-9"><b>Borrar datos</b></h4>
-      <small class="ml-9"
-        >Esta opción eliminará todas las notas guardadas</small
-      >
-      <v-btn class="mt-4 ml-8 w-25 btn-color" rounded="xl"
-        >Eliminar datos</v-btn
-      >
+      <div class="pt-4 ml-9 container">
+        <h2>{{ note.title }}</h2>
+        <div class="note-body mb-7 mt-4">
+          <p>{{ note.body }}</p>
+        </div>
+        <div class="mb-12">
+          <p class="mb-2">
+            <b>Última modificación:</b> {{ note.lastModification }}
+          </p>
+          <p><b>Entregar antes de : </b> {{ note.deadline }}</p>
+        </div>
+        <div class="d-flex flex-row mb-4 align-center">
+          <p><b>Prioridad: </b></p>
+          <v-sheet
+            class="ml-5 priority-indicator d-flex justify-center"
+            rounded="lg"
+          >
+            <h5 class="align-self-center">{{ note.priority }}</h5>
+          </v-sheet>
+        </div>
+        <div class="d-flex flex-row mb-16 align-center">
+          <p><b>Estatus: </b></p>
+          <v-sheet
+            class="ml-8 status-indicator d-flex justify-center"
+            rounded="lg"
+          >
+            <h5 class="align-self-center">{{ note.status }}</h5>
+          </v-sheet>
+        </div>
+      </div>
     </v-sheet>
   </v-container>
 </template>
 
 <script lang="ts" setup>
-import Note from "@/note/note";
+import Note from "@/domain/entities/Note";
 
 const note: Note = {
   id: 1,
@@ -37,6 +67,8 @@ const note: Note = {
   body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam aliquam aliquid eaque sint eos laudantium quidem dolore, repellendus eius qui eligendi porro magni impedit facilis, id eveniet, eum praesentium. Non! ",
   priority: "Alta",
   status: "En progreso",
+  lastModification: "2024-05-10",
+  deadline: "2024-05-21",
 };
 </script>
 
@@ -44,6 +76,7 @@ const note: Note = {
 .title-page {
   h1 {
     color: $light-font-title;
+    width: 105vh;
   }
 }
 
@@ -53,9 +86,44 @@ const note: Note = {
   width: 100vh;
 }
 
-.btn-color {
-  color: $light-font-title;
+.delete-btn {
   background-color: $light-high-status;
-  margin-bottom: 20vh;
+  color: $light-menu-bg;
+}
+
+.edit-btn {
+  background-color: $dark-bg;
+  color: $light-menu-bg;
+}
+
+.note-body {
+  max-height: 35vh;
+}
+
+.priority-indicator {
+  background-color: $light-high-status;
+  width: 10vh;
+  height: 4vh;
+  p {
+    color: black;
+  }
+}
+
+.status-indicator {
+  background-color: $light-mid-status;
+  width: 15vh;
+  height: 4vh;
+}
+
+.container {
+  h2 {
+    color: $light-font;
+  }
+  p {
+    color: $light-header-panel;
+  }
+  b {
+    color: $light-font;
+  }
 }
 </style>

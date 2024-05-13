@@ -1,13 +1,12 @@
 <template>
   <v-container>
     <div class="title-page ml-4 mt-4 mb-4 d-flex flex-row align-center">
-      <h1 class="w-100 justify-start">Pendientes</h1>
-      <v-btn class="btn-new-note" prepend-icon="mdi-plus">Nueva nota</v-btn>
+      <h1 class="w-100 justify-start">Historial</h1>
     </div>
     <v-virtual-scroll class="scroll-container" :items="mockData">
       <template v-slot:default="{ item }">
         <NoteComponent
-          :key="item.title"
+          :key="item.id"
           :title="item.title"
           :substract="item.body"
           :endline="item.deadline"
@@ -29,35 +28,35 @@ const mockData: Array<Note> = [
     title: "title 1",
     body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
     deadline: "21/05/24",
-    status: "En progreso",
+    status: "Terminado",
   },
   {
     id: 2,
     title: "title 1",
     body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
     deadline: "21/05/24",
-    status: "En progreso",
+    status: "Terminado",
   },
   {
     id: 3,
     title: "title 1",
     body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
     deadline: "21/05/24",
-    status: "En progreso",
+    status: "Terminado",
   },
   {
     id: 4,
     title: "title 1",
     body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
     deadline: "21/05/24",
-    status: "En progreso",
+    status: "Terminado",
   },
   {
     id: 5,
     title: "title 1",
     body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
     deadline: "21/05/24",
-    status: "En progreso",
+    status: "Terminado",
   },
 ];
 </script>

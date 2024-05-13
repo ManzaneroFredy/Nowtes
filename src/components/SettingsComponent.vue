@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="title-page ml-4 mt-4 mb-4">
-      <v-btn icon="mdi-chevron-left" variant="text">Nota #{{ note.id }} </v-btn>
+      <h1>Preferencias</h1>
     </div>
     <v-sheet
       class="d-flex flex-column justify-start p-1 setting-container"
@@ -20,24 +20,16 @@
       <small class="ml-9"
         >Esta opción eliminará todas las notas guardadas</small
       >
-      <v-btn class="mt-4 ml-8 w-25 btn-color" rounded="xl"
+      <v-btn class="mt-4 ml-8 mb-6 btn-delete-data" rounded="xl"
         >Eliminar datos</v-btn
       >
+      <h4 class="ml-9"><b>Cerrar sesión</b></h4>
+      <v-btn class="mt-2 ml-8 btn-end-sesion" rounded="xl">Cerrar sesión</v-btn>
     </v-sheet>
   </v-container>
 </template>
 
-<script lang="ts" setup>
-import Note from "@/note/note";
-
-const note = {
-  id: 1,
-  title: "title 1",
-  body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam aliquam aliquid eaque sint eos laudantium quidem dolore, repellendus eius qui eligendi porro magni impedit facilis, id eveniet, eum praesentium. Non! ",
-  priority: "Alta",
-  status: "En progreso",
-};
-</script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 .title-page {
@@ -52,9 +44,15 @@ const note = {
   width: 100vh;
 }
 
-.btn-color {
+.btn-delete-data {
   color: $light-font-title;
   background-color: $light-high-status;
+  width: 20vh;
+}
+
+.btn-end-sesion {
+  background-color: $light-mid-status;
+  width: 20vh;
   margin-bottom: 20vh;
 }
 </style>
