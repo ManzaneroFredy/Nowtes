@@ -44,7 +44,7 @@
       <HomePageComponent v-if="initComponent"></HomePageComponent>
       <HistoryComponent v-if="historialComponent"></HistoryComponent>
       <!-- <NoteCompleteDetailsComponent></NoteCompleteDetailsComponent> -->
-      <NewNoteComponent></NewNoteComponent>
+      <!-- <NewNoteComponent></NewNoteComponent> -->
     </div>
   </div>
 </template>

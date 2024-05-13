@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/uuid": "^9.0.8",
+    "@vueuse/core": "^10.9.0",
     "core-js": "^3.8.3",
     "dotenv": "^16.4.5",
     "eslint-plugin-hexagonal-architecture": "^1.0.3",

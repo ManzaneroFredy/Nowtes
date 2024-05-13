@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container color-scheme=" isDark ? 'dark' : 'light' ">
     <div class="title-page ml-4 mt-4 mb-4">
       <h1>Preferencias</h1>
     </div>
@@ -9,7 +9,14 @@
     >
       <h3 class="pt-4 ml-9">Interfaz</h3>
       <h4 class="pt-12 ml-9"><b>Tema oscuro</b></h4>
-      <v-switch class="ml-9" inset label="Desactivado"></v-switch>
+
+      <v-switch
+        class="ml-9"
+        inset
+        label="Desactivado"
+        @click="toggleDark()"
+      ></v-switch>
+
       <v-select
         class="w-25 ml-9"
         label="Método para priorizar las tareas"
@@ -29,30 +36,70 @@
   </v-container>
 </template>
 
-<script lang="ts" setup></script>
+<!--  <script lang="ts" setup> -->
+<script lang="js" setup>
+
+import {useDark,useToggle} from "@vueuse/core";
+
+
+const isDark = useDark({
+  selector: "body",
+  attribute: "color-scheme",
+  valueDark: "dark",
+  valueLight: "light",
+})
+
+const toggleDark = useToggle(isDark)
+</script>
 
 <style lang="scss" scoped>
-.title-page {
-  h1 {
+[color-scheme="light"] {
+  .title-page {
+    h1 {
+      color: $light-font-title;
+    }
+  }
+
+  .settings-container {
+    background-color: $light-note-bg;
+    height: 75vh;
+    width: 100vh;
+  }
+
+  .btn-delete-data {
     color: $light-font-title;
+    background-color: $light-high-status;
+    width: 20vh;
+  }
+
+  .btn-end-sesion {
+    background-color: $light-mid-status;
+    width: 20vh;
+    margin-bottom: 20vh;
   }
 }
 
-.settings-container {
-  background-color: $light-note-bg;
-  height: 75vh;
-  width: 100vh;
-}
+[color-scheme="dark"] {
+  .title-page {
+    h1 {
+      color: $dark-font-title;
+    }
+  }
 
-.btn-delete-data {
-  color: $light-font-title;
-  background-color: $light-high-status;
-  width: 20vh;
-}
-
-.btn-end-sesion {
-  background-color: $light-mid-status;
-  width: 20vh;
-  margin-bottom: 20vh;
+  .settings-container {
+    background-color: $dark-note-bg;
+    height: 75vh;
+    width: 100vh;
+  }
+  .btn-delete-data {
+    color: $dark-font-title;
+    background-color: $dark-high-status;
+    width: 20vh;
+  }
+  .btn-end-sesion {
+    background-color: $dark-mid-status;
+    width: 20vh;
+    margin-bottom: 20vh;
+  }
 }
 </style>
