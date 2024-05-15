@@ -2,7 +2,12 @@
   <v-container>
     <div class="title-page ml-4 mt-4 mb-4 d-flex flex-row align-center">
       <h1 class="w-100 justify-start">Pendientes</h1>
-      <v-btn class="btn-new-note" prepend-icon="mdi-plus">Nueva nota</v-btn>
+      <v-btn
+        class="btn-new-note"
+        prepend-icon="mdi-plus"
+        @click="$emit('showCreateNoteComponent', 'createNoteComponent')"
+        >Nueva nota</v-btn
+      >
     </div>
     <v-virtual-scroll class="scroll-container" :items="mockData">
       <template v-slot:default="{ item }">
@@ -13,6 +18,7 @@
           :endline="item.deadline"
           :status="item.status"
           class="d-flex align-self-start ml-4 my-2"
+          @showNoteCompleteDetailComponent="(componentToShow: string) => $emit('showNoteCompleteDetailComponent', componentToShow)"
         ></NoteComponent>
       </template>
     </v-virtual-scroll>

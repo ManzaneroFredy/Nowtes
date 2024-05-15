@@ -17,7 +17,7 @@
         variant="plain"
         size="x-large"
         :ripple="false"
-        @click="$emit('showInitComponent', true, false, false)"
+        @click="$emit('showInitComponent', init)"
       >
         <h3>Inicio</h3>
       </v-btn>
@@ -26,7 +26,7 @@
         variant="plain"
         size="x-large"
         :ripple="false"
-        @click="$emit('showHistorialComponent', false, true, false)"
+        @click="$emit('showHistorialComponent', historial)"
       >
         <h3>Historial</h3>
       </v-btn>
@@ -35,7 +35,7 @@
         variant="plain"
         size="x-large"
         :ripple="false"
-        @click="$emit('showPreferenceComponent', false, false, true)"
+        @click="$emit('showPreferenceComponent', preference)"
       >
         <h3>Preferencias</h3>
       </v-btn>
@@ -43,7 +43,11 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+let init = "initComponent";
+let historial = "historialComponent";
+let preference = "preferenceComponent";
+</script>
 
 <style scoped lang="scss">
 .container {

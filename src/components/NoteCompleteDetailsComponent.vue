@@ -1,7 +1,12 @@
 <template>
   <v-container>
     <div class="title-page ml-4 mt-4 mb-4 d-flex align-center">
-      <v-btn icon="mdi-chevron-left" variant="text" size="large"></v-btn>
+      <v-btn
+        icon="mdi-chevron-left"
+        variant="text"
+        size="large"
+        @click="$emit('showInitComponent', 'initComponent')"
+      ></v-btn>
       <h1 class="">Nota #{{ note.id }}</h1>
       <div class="d-flex ml-12 ga-6 justify-end">
         <v-btn
@@ -16,6 +21,7 @@
           rounded="lg"
           prepend-icon="mdi-pencil"
           variant="flat"
+          @click="$emit('showInitComponent', 'initComponent')"
           >Editar</v-btn
         >
       </div>

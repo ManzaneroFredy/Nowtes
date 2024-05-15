@@ -3,48 +3,27 @@
     <DashboardHeaderComponent></DashboardHeaderComponent>
     <div class="d-flex flex-row">
       <DashboardSideBarComponent
-        @showInitComponent="
-          (
-            initComponentValue,
-            historialComponentvalue,
-            preferenceComponentValue
-          ) =>
-            defineComponentView(
-              initComponentValue,
-              historialComponentvalue,
-              preferenceComponentValue
-            )
-        "
-        @showHistorialComponent="
-          (
-            initComponentValue,
-            historialComponentvalue,
-            preferenceComponentValue
-          ) =>
-            defineComponentView(
-              initComponentValue,
-              historialComponentvalue,
-              preferenceComponentValue
-            )
-        "
-        @showPreferenceComponent="
-          (
-            initComponentValue,
-            historialComponentvalue,
-            preferenceComponentValue
-          ) =>
-            defineComponentView(
-              initComponentValue,
-              historialComponentvalue,
-              preferenceComponentValue
-            )
-        "
+        @showInitComponent="(componetToShow: string) => defineComponentView(componetToShow)"
+        @showHistorialComponent="(componetToShow: string) => defineComponentView(componetToShow)"
+        @showPreferenceComponent="(componetToShow: string) => defineComponentView(componetToShow)"
       ></DashboardSideBarComponent>
       <SettingsCommponent v-if="preferenceComponent"></SettingsCommponent>
-      <HomePageComponent v-if="initComponent"></HomePageComponent>
+      <HomePageComponent
+        v-if="initComponent"
+        @showCreateNoteComponent="(componetToShow: string) => defineComponentView(componetToShow)"
+        @showNoteCompleteDetailComponent="(componetToShow: string) => defineComponentView(componetToShow)"
+      ></HomePageComponent>
       <HistoryComponent v-if="historialComponent"></HistoryComponent>
-      <!-- <NoteCompleteDetailsComponent></NoteCompleteDetailsComponent> -->
-      <NewNoteComponent></NewNoteComponent>
+      <NoteCompleteDetailsComponent
+        v-if="noteCompleteDetailsComponent"
+        @showInitComponent="(componetToShow: string) => defineComponentView(componetToShow)"
+      ></NoteCompleteDetailsComponent>
+      <NewNoteComponent
+        v-if="createNoteComponent"
+        @showInitComponent="(componetToShow: string) => defineComponentView(componetToShow)"
+        @showInitComponentFromCancel="(componetToShow: string) => defineComponentView(componetToShow)"
+      >
+      </NewNoteComponent>
     </div>
   </div>
 </template>
@@ -58,19 +37,37 @@ import HomePageComponent from "@/components/HomePageComponent.vue";
 import HistoryComponent from "@/components/HistoryComponent.vue";
 import NoteCompleteDetailsComponent from "@/components/NoteCompleteDetailsComponent.vue";
 import NewNoteComponent from "@/components/NewNoteComponent.vue";
+import ComponentsAvailablesInterface from "@/utilities/ComponentAvailableInterface";
 
-let initComponent = ref(false);
+let initComponent = ref(true);
 let historialComponent = ref(false);
 let preferenceComponent = ref(false);
+let createNoteComponent = ref(false);
+let noteCompleteDetailsComponent = ref(false);
 
-const defineComponentView = (
-  initComponentValue: boolean,
-  historialComponentvalue: boolean,
-  preferenceComponentValue: boolean
-) => {
-  initComponent.value = initComponentValue;
-  historialComponent.value = historialComponentvalue;
-  preferenceComponent.value = preferenceComponentValue;
+const componentsAvailables: ComponentsAvailablesInterface = {
+  // eslint-disable-next-line prettier/prettier, no-undef
+  "initComponent": (showComponent: boolean) => {initComponent.value = showComponent},
+  // eslint-disable-next-line prettier/prettier
+  "historialComponent": (showComponent: boolean) => {historialComponent.value = showComponent},
+  // eslint-disable-next-line prettier/prettier
+  "preferenceComponent": (showComponent: boolean) => {preferenceComponent.value = showComponent},
+  // eslint-disable-next-line prettier/prettier
+  "createNoteComponent": (showComponent: boolean) => {createNoteComponent.value = showComponent},
+  // eslint-disable-next-line prettier/prettier
+  "completeDetailComponent": (showComponent: boolean) => {noteCompleteDetailsComponent.value = showComponent},
+
+};
+
+const defineComponentView = (componentToShow: string) => {
+  for (let key in componentsAvailables) {
+    if (key === componentToShow) {
+      console.log(key === componentToShow);
+      componentsAvailables[key](true);
+    } else {
+      componentsAvailables[key](false);
+    }
+  }
 };
 </script>
 

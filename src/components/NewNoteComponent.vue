@@ -1,7 +1,12 @@
 <template>
   <v-container class="fluid">
     <div class="title-page ml-4 mt-4 mb-4 d-flex align-center">
-      <v-btn icon="mdi-chevron-left" variant="text" size="large"></v-btn>
+      <v-btn
+        icon="mdi-chevron-left"
+        variant="text"
+        size="large"
+        @click="$emit('showInitComponent', 'initComponent')"
+      ></v-btn>
       <h1 class="">Nueva nota</h1>
     </div>
     <v-sheet class="setting-container" rounded>
@@ -71,10 +76,15 @@
       <v-row no-gutters>
         <v-col>
           <div class="d-flex align-center mb-3 ml-12 w-75 ga-8">
-            <v-btn class="decline-btn font-weight-bold" rouneded="lg"
+            <v-btn
+              class="decline-btn font-weight-bold"
+              rouneded="lg"
+              @click="$emit('showInitComponentFromCancel', 'initComponent')"
               >Cancelar</v-btn
             >
-            <v-btn class="save-btn" rouneded="lg">Guardar</v-btn>
+            <v-btn class="save-btn font-weight-bold" rouneded="lg"
+              >Guardar</v-btn
+            >
           </div>
         </v-col>
       </v-row>

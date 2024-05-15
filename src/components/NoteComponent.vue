@@ -31,6 +31,9 @@
           variant="text"
           density="comfortable"
           icon="mdi-pencil"
+          @click="
+            $emit('showNoteCompleteDetailComponent', 'completeDetailComponent')
+          "
         ></v-btn>
         <v-btn variant="text" density="comfortable" icon="mdi-delete"></v-btn>
       </div>
