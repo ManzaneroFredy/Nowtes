@@ -11,7 +11,7 @@
       <HomePageComponent
         v-if="initComponent"
         @showCreateNoteComponent="(componetToShow: string) => defineComponentView(componetToShow)"
-        @showNoteCompleteDetailComponent="(componetToShow: string) => defineComponentView(componetToShow)"
+        @showEditNoteComponent="(componetToShow: string) => defineComponentView(componetToShow)"
       ></HomePageComponent>
       <HistoryComponent v-if="historialComponent"></HistoryComponent>
       <NoteCompleteDetailsComponent
@@ -24,6 +24,7 @@
         @showInitComponentFromCancel="(componetToShow: string) => defineComponentView(componetToShow)"
       >
       </NewNoteComponent>
+      <EditNoteComponent v-if="editNoteComponente"></EditNoteComponent>
     </div>
   </div>
 </template>
@@ -38,13 +39,16 @@ import HistoryComponent from "@/components/HistoryComponent.vue";
 import NoteCompleteDetailsComponent from "@/components/NoteCompleteDetailsComponent.vue";
 import NewNoteComponent from "@/components/NewNoteComponent.vue";
 import ComponentsAvailablesInterface from "@/utilities/ComponentAvailableInterface";
+import EditNoteComponent from "@/components/EditNoteComponent.vue";
 
 let initComponent = ref(true);
 let historialComponent = ref(false);
 let preferenceComponent = ref(false);
 let createNoteComponent = ref(false);
 let noteCompleteDetailsComponent = ref(false);
+let editNoteComponente = ref(false);
 
+//Strategy pattern
 const componentsAvailables: ComponentsAvailablesInterface = {
   // eslint-disable-next-line prettier/prettier, no-undef
   "initComponent": (showComponent: boolean) => {initComponent.value = showComponent},
@@ -56,6 +60,8 @@ const componentsAvailables: ComponentsAvailablesInterface = {
   "createNoteComponent": (showComponent: boolean) => {createNoteComponent.value = showComponent},
   // eslint-disable-next-line prettier/prettier
   "completeDetailComponent": (showComponent: boolean) => {noteCompleteDetailsComponent.value = showComponent},
+  // eslint-disable-next-line prettier/prettier
+  "editNoteComponent": (showComponent: boolean) => {editNoteComponente.value = showComponent},
 
 };
 
