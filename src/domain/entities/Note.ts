@@ -5,9 +5,9 @@ export class Note {
     private body: string,
     private status: string,
     private deadline: string,
-    private substract?: string,  // Renamed from 'substract'
+    private substract?: string, // Renamed from 'substract'
     private priority?: string,
-    private lastModification?: string,
+    private lastModification?: string
   ) {}
 
   toJSON(): object {
@@ -23,7 +23,6 @@ export class Note {
     };
   }
 
-
   static createNote(
     id: number,
     title: string,
@@ -34,8 +33,19 @@ export class Note {
     priority?: string,
     lastModification?: string
   ): Note {
-    return new Note(id, title, body, status, deadline, substract, priority, lastModification);
+    return new Note(
+      id,
+      title,
+      body,
+      status,
+      deadline,
+      substract,
+      priority,
+      lastModification
+    );
   }
+
+
 
   getId(): number {
     return this.id;

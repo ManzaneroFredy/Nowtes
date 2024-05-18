@@ -3,6 +3,9 @@ import NoteRepository from '../../src/domain/repositories/NoteRepository';
 import Note from '../../src/domain/entities/Note';
 
 class MockNoteRepository implements NoteRepository {
+  getNoteById(id: string): Promise<Note | null> {
+    throw new Error('Method not implemented.');
+  }
   private notes: Note[] = [];
 
   async saveNote(note: Note): Promise<void> {
