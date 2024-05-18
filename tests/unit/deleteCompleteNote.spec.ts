@@ -8,8 +8,6 @@ jest.mock("@/domain/repositories/NoteRepository");
 jest.mock("@/domain/repositories/UserNotesRepository");
 
 describe("DeleteNote", () => {
-  console.log("Describe block is executed");
-
   let noteRepository: jest.Mocked<NoteRepository>;
   let userNotesRepository: jest.Mocked<UserNotesRepository>;
   let deleteNote: DeleteNote;
@@ -41,7 +39,6 @@ describe("DeleteNote", () => {
   });
 
   it("debería eliminar una nota no finalizada exitosamente", async () => {
-    console.log("Test 'debería eliminar una nota no finalizada exitosamente' is executed");
     const note = new Note(
       1,
       "Nota de prueba",
@@ -59,7 +56,6 @@ describe("DeleteNote", () => {
   });
 
   it("debería lanzar un error si la nota no se encuentra", async () => {
-    console.log("Test 'debería lanzar un error si la nota no se encuentra' is executed");
     userNotesRepository.findById.mockResolvedValue(null as any);
 
     await expect(deleteNote.deleteNote("1")).rejects.toThrow("No se encontró la nota para eliminar.");
@@ -67,7 +63,6 @@ describe("DeleteNote", () => {
   });
 
   it("debería lanzar un error si la nota está finalizada", async () => {
-    console.log("Test 'debería lanzar un error si la nota está finalizada' is executed");
     const note = new Note(
       1,
       "Nota de prueba",

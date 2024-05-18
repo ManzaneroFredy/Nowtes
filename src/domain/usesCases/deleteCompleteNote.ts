@@ -17,7 +17,7 @@ export class DeleteNote {
         throw new Error("No se encontró la nota para eliminar.");
       }
 
-      // Verifica que la nota esté finalizadaa
+      // Verifica que la nota esté finalizada
       if (existingNote.getStatus() === "Terminado") {
         throw new Error("No se puede eliminar una nota finalizada.");
       }
