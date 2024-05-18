@@ -11,7 +11,10 @@
       <HomePageComponent
         v-if="initComponent"
         @showCreateNoteComponent="(componetToShow: string) => defineComponentView(componetToShow)"
-        @showEditNoteComponent="(componetToShow: string) => defineComponentView(componetToShow)"
+        @showEditNoteComponent="(componetToShow: string, id: string) =>{
+           defineComponentView(componetToShow)
+           noteId = id;
+        }"
       ></HomePageComponent>
       <HistoryComponent v-if="historialComponent"></HistoryComponent>
       <NoteCompleteDetailsComponent
@@ -24,7 +27,12 @@
         @showInitComponentFromCancel="(componetToShow: string) => defineComponentView(componetToShow)"
       >
       </NewNoteComponent>
-      <EditNoteComponent v-if="editNoteComponente"></EditNoteComponent>
+      <EditNoteComponent
+        @showInitComponent="(componetToShow: string) => defineComponentView(componetToShow)"
+        @showInitComponentFromCancel="(componetToShow: string) => defineComponentView(componetToShow)"
+        :id="noteId"
+        v-if="editNoteComponente"
+      ></EditNoteComponent>
     </div>
   </div>
 </template>
@@ -47,6 +55,7 @@ let preferenceComponent = ref(false);
 let createNoteComponent = ref(false);
 let noteCompleteDetailsComponent = ref(false);
 let editNoteComponente = ref(false);
+let noteId = "";
 
 //Strategy pattern
 const componentsAvailables: ComponentsAvailablesInterface = {
@@ -61,8 +70,9 @@ const componentsAvailables: ComponentsAvailablesInterface = {
   // eslint-disable-next-line prettier/prettier
   "completeDetailComponent": (showComponent: boolean) => {noteCompleteDetailsComponent.value = showComponent},
   // eslint-disable-next-line prettier/prettier
-  "editNoteComponent": (showComponent: boolean) => {editNoteComponente.value = showComponent},
-
+  "editNoteComponent": (showComponent: boolean) => {
+    editNoteComponente.value = showComponent;
+  },
 };
 
 const defineComponentView = (componentToShow: string) => {

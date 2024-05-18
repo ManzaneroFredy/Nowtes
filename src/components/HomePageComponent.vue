@@ -18,7 +18,7 @@
           :endline="item.getDeadline()"
           :status="item.getStatus()"
           class="d-flex align-self-start ml-4 my-2"
-          @showEditNoteComponent="(componentToShow: string) => $emit('showEditNoteComponent', componentToShow)"
+          @showEditNoteComponent="(componentToShow: string) => $emit('showEditNoteComponent', componentToShow, item.id)"
         ></NoteComponent>
       </template>
     </v-virtual-scroll>
