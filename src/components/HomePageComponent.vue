@@ -12,13 +12,13 @@
     <v-virtual-scroll class="scroll-container" :items="mockData">
       <template v-slot:default="{ item }">
         <NoteComponent
-          :key="item.title"
+          :key="item.id"
           :title="item.title"
           :substract="item.body"
           :endline="item.deadline"
           :status="item.status"
           class="d-flex align-self-start ml-4 my-2"
-          @showEditNoteComponent="(componentToShow: string) => $emit('showEditNoteComponent', componentToShow)"
+          @showEditNoteComponent="(componentToShow: string) => $emit('showEditNoteComponent', componentToShow, item.id)"
         ></NoteComponent>
       </template>
     </v-virtual-scroll>

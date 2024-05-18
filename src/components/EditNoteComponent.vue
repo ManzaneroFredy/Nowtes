@@ -109,23 +109,23 @@ const props = defineProps({
   },
   title: {
     type: String,
-    required: true,
+    required: false,
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
   date: {
     type: String,
-    required: true,
+    required: false,
   },
   priority: {
     type: String,
-    required: true,
+    required: false,
   },
   deleteAtDeadline: {
     type: Boolean,
-    requirte: true,
+    requirte: false,
   },
 });
 </script>
