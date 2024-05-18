@@ -1,10 +1,10 @@
-import { RegisterNote } from '../../src/domain/usesCases/registerNote';
-import NoteRepository from '../../src/domain/repositories/NoteRepository';
-import Note from '../../src/domain/entities/Note';
+import { RegisterNote } from "../../src/domain/usesCases/registerNote";
+import NoteRepository from "../../src/domain/repositories/NoteRepository";
+import Note from "../../src/domain/entities/Note";
 
 class MockNoteRepository implements NoteRepository {
   getNoteById(id: string): Promise<Note | null> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
   private notes: Note[] = [];
 
@@ -13,7 +13,7 @@ class MockNoteRepository implements NoteRepository {
   }
 
   async deleteNoteById(id: string): Promise<void> {
-    this.notes = this.notes.filter(note => note.getId() !== parseInt(id));
+    this.notes = this.notes.filter((note) => note.getId() !== parseInt(id));
   }
 
   async editNote(id: string): Promise<void> {
@@ -25,7 +25,7 @@ class MockNoteRepository implements NoteRepository {
   }
 }
 
-describe('RegisterNote', () => {
+describe("RegisterNote", () => {
   let registerNote: RegisterNote;
   let mockNoteRepository: MockNoteRepository;
 
@@ -34,15 +34,15 @@ describe('RegisterNote', () => {
     registerNote = new RegisterNote(mockNoteRepository);
   });
 
-  it('should create and save a new note', async () => {
+  it("should create and save a new note", async () => {
     const id = 1;
-    const title = 'Test Note';
-    const body = 'This is a test note';
-    const status = 'active';
-    const deadline = '2024-12-31';
-    const substract = 'substract test';
-    const priority = 'high';
-    const lastModification = '2024-05-17';
+    const title = "Test Note";
+    const body = "This is a test note";
+    const status = "active";
+    const deadline = "2024-12-31";
+    const substract = "substract test";
+    const priority = "high";
+    const lastModification = "2024-05-17";
 
     const note = await registerNote.createNote(
       id,
@@ -64,7 +64,7 @@ describe('RegisterNote', () => {
       substract,
       priority,
       lastModification,
-    }); 
+    });
 
     const savedNotes = mockNoteRepository.getNotes();
     expect(savedNotes.length).toBe(1);

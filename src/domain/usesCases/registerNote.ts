@@ -16,7 +16,16 @@ export class RegisterNote {
     priority?: string, // Parámetro opcional
     lastModification?: string // Parámetro opcional
   ): Promise<Note> {
-    const note = new Note(id, title, body, status, deadline, substract, priority, lastModification);
+    const note = new Note(
+      id,
+      title,
+      body,
+      status,
+      deadline,
+      substract,
+      priority,
+      lastModification
+    );
     await this.noteRepository.saveNote(note); // Guardar la nota en el repositorio
     return note;
   }

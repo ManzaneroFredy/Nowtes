@@ -45,8 +45,6 @@ export class Note {
     );
   }
 
-
-
   getId(): number {
     return this.id;
   }
