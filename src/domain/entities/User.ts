@@ -1,11 +1,11 @@
 export class User {
   constructor(
-    private id: number,
+    private id: string,
     private username: string,
     private password: string
   ) {}
 
-  getId(): number {
+  getId(): string {
     return this.id;
   }
 

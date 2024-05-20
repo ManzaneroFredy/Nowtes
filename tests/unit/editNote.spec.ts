@@ -1,5 +1,3 @@
-// EditNote.test.ts
-
 import Note from "@/domain/entities/Note";
 import NoteRepository from "@/domain/repositories/NoteRepository";
 import UserNotesRepository from "@/domain/repositories/UserNotesRepository";

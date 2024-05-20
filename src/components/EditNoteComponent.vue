@@ -23,9 +23,9 @@
               rounded="lg"
               bg-color="#829CBC"
               rows="2"
+              v-model:model-value="titleValue"
             >
-              {{ props.title }}</v-textarea
-            >
+            </v-textarea>
           </div>
         </v-col>
       </v-row>
@@ -42,8 +42,8 @@
               rounded="lg"
               bg-color="#829CBC"
               rows="8"
+              v-model:model-value="descriptionValue"
             >
-              {{ props.description }}
             </v-textarea>
           </div>
         </v-col>
@@ -52,7 +52,7 @@
         <v-col>
           <div class="d-flex align-center mb-6 ml-6">
             <h3 class="mr-12 ml-6">Fecha:</h3>
-            <input class="date-picker" type="date" value=" {{ props.date }} " />
+            <input class="date-picker" type="date" :value="dateValue" />
           </div>
         </v-col>
       </v-row>
@@ -64,7 +64,7 @@
               class=""
               label="Selecciona la prioridad"
               :items="priorities"
-              placeholder="{{ props.priority }}"
+              v-model="priorityValue"
             ></v-select>
           </div>
         </v-col>
@@ -74,7 +74,7 @@
           <div class="d-flex align-center ml-10 w-75">
             <v-checkbox
               label="Borrar cuando la tarea cambie al estado 'Finalizada'"
-              model-value=" {{ props.deleteAtDeadline }}"
+              v-model="deleteAtDeadLineValue"
             ></v-checkbox>
           </div>
         </v-col>
@@ -99,7 +99,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
 const priorities = ["Baja", "Media", "Alta"];
 
 const props = defineProps({
@@ -128,6 +128,12 @@ const props = defineProps({
     requirte: false,
   },
 });
+
+let titleValue = ref(props.title);
+let descriptionValue = ref(props.description);
+let dateValue = ref(props.date);
+let priorityValue = ref(props.priority);
+let deleteAtDeadLineValue = ref(props.deleteAtDeadline);
 </script>
 
 <style lang="scss" scoped>

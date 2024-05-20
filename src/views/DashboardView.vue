@@ -10,16 +10,20 @@
       <SettingsCommponent v-if="preferenceComponent"></SettingsCommponent>
       <HomePageComponent
         v-if="initComponent"
+        @showCompleteNoteDetailsComponent="(componetToShow: string) => defineComponentView(componetToShow)"
         @showCreateNoteComponent="(componetToShow: string) => defineComponentView(componetToShow)"
-        @showEditNoteComponent="(componetToShow: string, id: string) =>{
+        @showEditNoteComponent="(componetToShow: string, noteItem: Note) =>{
            defineComponentView(componetToShow)
-           noteId = id;
+           currentNote = noteItem;
         }"
       ></HomePageComponent>
       <HistoryComponent v-if="historialComponent"></HistoryComponent>
       <NoteCompleteDetailsComponent
         v-if="noteCompleteDetailsComponent"
         @showInitComponent="(componetToShow: string) => defineComponentView(componetToShow)"
+        @showEditNoteComponent="(componetToShow: string, id: string) =>{
+           defineComponentView(componetToShow)
+        }"
       ></NoteCompleteDetailsComponent>
       <NewNoteComponent
         v-if="createNoteComponent"
@@ -30,7 +34,12 @@
       <EditNoteComponent
         @showInitComponent="(componetToShow: string) => defineComponentView(componetToShow)"
         @showInitComponentFromCancel="(componetToShow: string) => defineComponentView(componetToShow)"
-        :id="noteId"
+        :id="currentNote.getId().toString()"
+        :title="currentNote.getTitle()"
+        :description="currentNote.getBody()"
+        :date="currentNote.getDeadline()"
+        :priority="currentNote.getPriority()"
+        :delete-at-deadline="true"
         v-if="editNoteComponente"
       ></EditNoteComponent>
     </div>
@@ -48,6 +57,7 @@ import NoteCompleteDetailsComponent from "@/components/NoteCompleteDetailsCompon
 import NewNoteComponent from "@/components/NewNoteComponent.vue";
 import ComponentsAvailablesInterface from "@/utilities/ComponentAvailableInterface";
 import EditNoteComponent from "@/components/EditNoteComponent.vue";
+import Note from "@/domain/entities/Note";
 
 let initComponent = ref(true);
 let historialComponent = ref(false);
@@ -55,7 +65,7 @@ let preferenceComponent = ref(false);
 let createNoteComponent = ref(false);
 let noteCompleteDetailsComponent = ref(false);
 let editNoteComponente = ref(false);
-let noteId = "";
+let currentNote: Note;
 
 //Strategy pattern
 const componentsAvailables: ComponentsAvailablesInterface = {
@@ -72,6 +82,10 @@ const componentsAvailables: ComponentsAvailablesInterface = {
   // eslint-disable-next-line prettier/prettier
   "editNoteComponent": (showComponent: boolean) => {
     editNoteComponente.value = showComponent;
+  },
+  // eslint-disable-next-line prettier/prettier
+  "completeNoteDetailsComponente": (showComponent: boolean) => {
+    noteCompleteDetailsComponent.value = showComponent;
   },
 };
 

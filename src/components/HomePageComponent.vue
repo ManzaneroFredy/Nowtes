@@ -18,7 +18,9 @@
           :endline="item.getDeadline()"
           :status="item.getStatus()"
           class="d-flex align-self-start ml-4 my-2"
-          @showEditNoteComponent="(componentToShow: string) => $emit('showEditNoteComponent', componentToShow, item.id)"
+          @showEditNoteComponent="(componentToShow: string) => $emit('showEditNoteComponent', componentToShow, item)"
+          @showCompleteNoteDetailsComponent="(componentToShow: string) => $emit('showCompleteNoteDetailsComponent',
+              componentToShow, item)"
         ></NoteComponent>
       </template>
     </v-virtual-scroll>
@@ -33,35 +35,45 @@ let note1 = new Note(
   "title 1",
   "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
   "en progreso",
-  "21/05/24"
+  "2024-05-21",
+  "",
+  "Baja"
 );
 let note2 = new Note(
-  1,
+  2,
   "title 2",
   "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
   "en progreso",
-  "21/05/24"
+  "2024-05-21",
+  "",
+  "Baja"
 );
 let note3 = new Note(
-  1,
+  3,
   "title 1",
   "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
   "en progreso",
-  "21/05/24"
+  "2024-05-21",
+  "",
+  "Baja"
 );
 let note4 = new Note(
-  1,
+  4,
   "title 1",
   "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
   "en progreso",
-  "21/05/24"
+  "2024-05-21",
+  "",
+  "Baja"
 );
 let note5 = new Note(
-  1,
+  5,
   "title 1",
   "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
   "en progreso",
-  "21/05/24"
+  "2024-05-21",
+  "",
+  "Baja"
 );
 
 const mockData: Array<Note> = [note1, note2, note3, note4, note5];
