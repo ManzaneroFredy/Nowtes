@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="title-page ml-4 mt-4 mb-4 d-flex flex-row align-center">
-      <h1 class="w-100 justify-start">Historial</h1>
+      <h1 class="w-100 justify-start text-title">Historial</h1>
     </div>
     <v-virtual-scroll class="scroll-container" :items="mockData">
       <template v-slot:default="{ item }">

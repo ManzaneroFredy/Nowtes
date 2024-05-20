@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="title-page ml-4 mt-4 mb-4 d-flex flex-row align-center">
-      <h1 class="w-100 justify-start">Pendientes</h1>
+      <h1 class="w-100 justify-start text-title">Pendientes</h1>
       <v-btn
         class="btn-new-note"
         prepend-icon="mdi-plus"
