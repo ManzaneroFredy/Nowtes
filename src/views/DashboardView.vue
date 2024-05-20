@@ -101,8 +101,4 @@ const defineComponentView = (componentToShow: string) => {
 };
 </script>
 
-<style scoped lang="scss">
-.dashboard-container {
-  background-color: $light-bg;
-}
-</style>
+<style scoped lang="scss"></style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column align-center container">
+  <div class="d-flex flex-column align-center container bg-background">
     <div class="mb-16">
       <v-img
         width="100"
@@ -19,7 +19,7 @@
         :ripple="false"
         @click="$emit('showInitComponent', init)"
       >
-        <h3>Inicio</h3>
+        <h3 class="text-whiteText">Inicio</h3>
       </v-btn>
       <v-divider></v-divider>
       <v-btn
@@ -28,7 +28,7 @@
         :ripple="false"
         @click="$emit('showHistorialComponent', historial)"
       >
-        <h3>Historial</h3>
+        <h3 class="text-whiteText">Historial</h3>
       </v-btn>
       <v-divider></v-divider>
       <v-btn
@@ -37,7 +37,7 @@
         :ripple="false"
         @click="$emit('showPreferenceComponent', preference)"
       >
-        <h3>Preferencias</h3>
+        <h3 class="text-whiteText">Preferencias</h3>
       </v-btn>
     </v-container>
   </div>
