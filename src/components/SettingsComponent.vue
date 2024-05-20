@@ -4,7 +4,7 @@
       <h1 class="text-title">Preferencias</h1>
     </div>
     <v-sheet
-      class="d-flex flex-column justify-start p-1 setting-container"
+      class="d-flex flex-column justify-start p-1 setting-container bg-nowte"
       rounded
     >
       <h3 class="pt-4 ml-9 text-title">Interfaz</h3>
@@ -12,7 +12,7 @@
       <v-switch
         class="ml-9"
         inset
-        label="OFF/ON"
+        :label="themeText"
         v-model="darkModeStatus"
         @update:model-value="toggleTheme"
       ></v-switch>
@@ -26,11 +26,13 @@
       <small class="ml-9 text-title"
         >Esta opción eliminará todas las notas guardadas</small
       >
-      <v-btn class="mt-4 ml-8 mb-6 btn-delete-data bg-primary" rounded="xl"
+      <v-btn
+        class="mt-4 ml-8 mb-6 btn-delete-data bg-settingDataBtn"
+        rounded="xl"
         >Eliminar datos</v-btn
       >
       <h4 class="ml-9"><b>Cerrar sesión</b></h4>
-      <v-btn class="mt-2 ml-8 btn-end-sesion bg-warning" rounded="xl"
+      <v-btn class="mt-2 ml-8 btn-end-sesion bg-settingCloseBtn" rounded="xl"
         >Cerrar sesión</v-btn
       >
     </v-sheet>
@@ -43,11 +45,13 @@ import { useTheme } from "vuetify";
 
 let darkModeStatus = ref(false);
 const theme = useTheme();
+let themeText = ref("Off");
 
 function toggleTheme() {
   theme.global.name.value = darkModeStatus.value
     ? "myCustomDarkTheme"
     : "myCustomLightTheme";
+  themeText.value = darkModeStatus.value ? "On" : "Off";
 }
 
 onMounted(() => {

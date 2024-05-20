@@ -1,30 +1,35 @@
 <template>
-  <v-sheet rounded="xl" class="w-auto">
+  <v-sheet rounded="xl" class="w-auto bg-nowte">
     <div class="w-50 mr-16 ml-5 mt-2">
-      <h2 class="title mb-4">{{ props.title }}</h2>
-      <p class="title">
+      <h2 class="title mb-4 text-nowteText">{{ props.title }}</h2>
+      <p class="title text-nowteText">
         {{ props.substract }}
       </p>
     </div>
     <div class="d-flex flex-row flex-wrap mt-2 mr-16">
       <div class="w-25 d-flex flex-column mr-3 title">
-        <h2 class="ml-4 mb-3 align-center">Fecha</h2>
-        <v-sheet rounded class="align-center deadline d-flex">
+        <h2 class="ml-4 mb-3 align-center text-nowteText">Fecha</h2>
+        <v-sheet
+          rounded
+          class="align-center deadline d-flex text-nowteText bg-warning"
+        >
           <p class="ml-4">{{ props.endline }}</p>
         </v-sheet>
       </div>
-      <div class="w-25 d-flex flex-column title">
+      <div class="w-25 d-flex flex-column title text-nowteText">
         <h2 class="ml-14 mb-3">Estatus</h2>
         <v-sheet
           rounded
-          class="justify-center align-center deadline d-flex ml-12"
+          class="justify-center align-center deadline d-flex ml-12 text-nowteText bg-primary"
         >
           <p class="justify-center">{{ props.status }}</p>
         </v-sheet>
       </div>
     </div>
     <div class="d-flex flex-wrap ml-2 mt-2">
-      <div class="ml-5 w-100 justify-center"><h2 class="title">Acción</h2></div>
+      <div class="ml-5 w-100 justify-center">
+        <h2 class="title text-nowteText">Acción</h2>
+      </div>
       <div class="mt-n3 ml-4">
         <v-btn variant="text" density="comfortable" icon="mdi-delete"></v-btn>
         <v-btn

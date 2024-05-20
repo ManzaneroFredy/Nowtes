@@ -1,5 +1,5 @@
 <template>
-  <router-view></router-view>
+  <router-view class="bg-surface"></router-view>
 </template>
 
 <script lang="ts" setup></script>

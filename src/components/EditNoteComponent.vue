@@ -9,11 +9,13 @@
       ></v-btn>
       <h1 class="">Editar nota # {{ props.id }}</h1>
     </div>
-    <v-sheet class="setting-container" rounded>
+    <v-sheet class="setting-container bg-nowte" rounded>
       <v-row no-gutters>
         <v-col>
           <div class="d-flex mt-5 ml-6 w-75">
-            <h3 class="align-self-center mb-5 mr-12 ml-6">Titulo:</h3>
+            <h3 class="align-self-center mb-5 mr-12 ml-6 text-nowteText">
+              Titulo:
+            </h3>
             <v-textarea
               class="align-self-center"
               density="compact"
@@ -21,7 +23,6 @@
               variant="outlined"
               no-resize
               rounded="lg"
-              bg-color="#829CBC"
               rows="2"
               v-model:model-value="titleValue"
             >
@@ -32,7 +33,9 @@
       <v-row no-gutters>
         <v-col>
           <div class="d-flex ml-6 w-75">
-            <h3 class="align-self-center mb-5 mr-6">Descripción:</h3>
+            <h3 class="align-self-center mb-5 mr-6 text-nowteText">
+              Descripción:
+            </h3>
             <v-textarea
               class="align-self-center"
               density="compact"
@@ -40,7 +43,6 @@
               variant="outlined"
               no-resize
               rounded="lg"
-              bg-color="#829CBC"
               rows="8"
               v-model:model-value="descriptionValue"
             >
@@ -51,15 +53,19 @@
       <v-row no-gutters>
         <v-col>
           <div class="d-flex align-center mb-6 ml-6">
-            <h3 class="mr-12 ml-6">Fecha:</h3>
-            <input class="date-picker" type="date" :value="dateValue" />
+            <h3 class="mr-12 ml-6 text-nowteText">Fecha:</h3>
+            <input
+              class="date-picker bg-nowte"
+              type="date"
+              :value="dateValue"
+            />
           </div>
         </v-col>
       </v-row>
       <v-row no-gutters>
         <v-col>
           <div class="d-flex align-center mb-3 ml-6 w-75">
-            <h3 class="mr-5 ml-6">Prioridad:</h3>
+            <h3 class="mr-5 ml-6 text-nowteText">Prioridad:</h3>
             <v-select
               class=""
               label="Selecciona la prioridad"

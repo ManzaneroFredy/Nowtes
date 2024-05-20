@@ -29,36 +29,44 @@
       </div>
     </div>
     <v-sheet
-      class="d-flex flex-column justify-start p-1 setting-container"
+      class="d-flex flex-column justify-start p-1 setting-container bg-nowte"
       rounded
     >
       <div class="pt-4 ml-9 container">
-        <h2>{{ note.getTitle() }}</h2>
+        <h2 class="text-nowteText">{{ note.getTitle() }}</h2>
         <div class="note-body mb-7 mt-4">
-          <p>{{ note.getBody() }}</p>
+          <p class="text-nowteText">{{ note.getBody() }}</p>
         </div>
         <div class="mb-12">
           <p class="mb-2">
-            <b>Última modificación:</b> {{ note.getLastModification() }}
+            <b class="text-nowteText">Última modificación:</b>
+            {{ note.getLastModification() }}
           </p>
-          <p><b>Entregar antes de : </b> {{ note.getDeadline() }}</p>
+          <p class="text-nowteText">
+            <b class="text-nowteText">Entregar antes de : </b>
+            {{ note.getDeadline() }}
+          </p>
         </div>
         <div class="d-flex flex-row mb-4 align-center">
-          <p><b>Prioridad: </b></p>
+          <p><b class="text-nowteText">Prioridad: </b></p>
           <v-sheet
-            class="ml-5 priority-indicator d-flex justify-center"
+            class="ml-5 priority-indicator d-flex justify-center text-nowteText"
             rounded="lg"
           >
-            <h5 class="align-self-center">{{ note.getPriority() }}</h5>
+            <h5 class="align-self-center text-nowteText">
+              {{ note.getPriority() }}
+            </h5>
           </v-sheet>
         </div>
         <div class="d-flex flex-row mb-16 align-center">
-          <p><b>Estatus: </b></p>
+          <p><b class="text-nowteText">Estatus: </b></p>
           <v-sheet
-            class="ml-8 status-indicator d-flex justify-center"
+            class="ml-8 status-indicator d-flex justify-center text-nowteText"
             rounded="lg"
           >
-            <h5 class="align-self-center">{{ note.getStatus() }}</h5>
+            <h5 class="align-self-center text-nowteText">
+              {{ note.getStatus() }}
+            </h5>
           </v-sheet>
         </div>
       </div>

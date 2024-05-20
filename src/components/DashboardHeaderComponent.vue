@@ -1,6 +1,6 @@
 <template>
-  <div class="container d-block bg-background">
-    <h2 class="text-title">Nowtes</h2>
+  <div class="container d-block bg-nowtesLogoBg">
+    <h2 class="text-title text-nowtesLogo">Nowtes</h2>
   </div>
 </template>
 

@@ -2,8 +2,18 @@
   <div class="d-flex flex-column align-center container bg-background">
     <div class="mb-16">
       <v-img
+        v-if="!themeValue"
         width="100"
         :src="require(`../assets/logo.png`)"
+        alt="Nowtes logo"
+        eager
+        class="mt-10"
+      >
+      </v-img>
+      <v-img
+        v-if="themeValue"
+        width="100"
+        :src="require(`../assets/LogoMakr.png`)"
         alt="Nowtes logo"
         eager
         class="mt-10"
@@ -44,9 +54,23 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, watch } from "vue";
+import { useTheme } from "vuetify";
+
 let init = "initComponent";
 let historial = "historialComponent";
 let preference = "preferenceComponent";
+
+const theme = useTheme();
+let themeValue = ref(true);
+
+themeValue.value = theme.global.current.value.dark;
+watch(
+  () => theme.global.current.value.dark,
+  (newValue) => {
+    themeValue.value = newValue;
+  }
+);
 </script>
 
 <style scoped lang="scss">

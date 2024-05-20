@@ -9,7 +9,7 @@
       ></v-btn>
       <h1 class="">Nueva nota</h1>
     </div>
-    <v-sheet class="setting-container" rounded>
+    <v-sheet class="setting-container bg-nowte" rounded>
       <v-row no-gutters>
         <v-col>
           <div class="d-flex mt-5 ml-6 w-75">
@@ -21,7 +21,6 @@
               variant="outlined"
               no-resize
               rounded="lg"
-              bg-color="#829CBC"
               rows="2"
             ></v-textarea>
           </div>
@@ -38,7 +37,6 @@
               variant="outlined"
               no-resize
               rounded="lg"
-              bg-color="#829CBC"
               rows="8"
             ></v-textarea>
           </div>
@@ -48,7 +46,7 @@
         <v-col>
           <div class="d-flex align-center mb-6 ml-6">
             <h3 class="mr-12 ml-6">Fecha:</h3>
-            <input class="date-picker" type="date" name="" id="" />
+            <input class="date-picker bg-nowte" type="date" name="" id="" />
           </div>
         </v-col>
       </v-row>

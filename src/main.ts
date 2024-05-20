@@ -12,34 +12,44 @@ import "reflect-metadata";
 export const myCustomLightTheme: ThemeDefinition = {
   dark: false,
   colors: {
-    background: "#FFFFFF",
-    surface: "#FFFFFF",
-    primary: "#6200EE",
+    background: "#FFFFFF", // $light-menu-bg: #ffffff; White
+    surface: "#829CBC", // $light-bg: #829CBC; Lighter blue
+    primary: "#F5DF53", // $light-mid-status: #F5DF53; yellow
     "primary-darken-1": "#3700B3",
-    secondary: "#03DAC6",
+    secondary: "#F5DF53", // $light-mid-status: #F5DF53; yellow
     "secondary-darken-1": "#018786",
-    error: "#B00020",
-    info: "#2196F3",
-    success: "#4CAF50",
-    warning: "#FB8C00",
+    error: "#E21A1A", // $light-high-status: #E21A1A; Red
+    info: "#F5DF53", // $light-mid-status: #F5DF53; yellow
+    success: "#99D4AC", // Light green
+    warning: "#99D4AC", // $light-high-status: #E21A1A; Red
+    nowtesLogo: "#FFFFFF",
+    nowtesLogoBg: "#6290C8", // $light-header-panel: #6290C8;
+    nowte: "#FFFFFF",
+    nowteText: "#1F487E",
+    settingDataBtn: "#F5DF53",
+    settingCloseBtn: "#E21A1A",
   },
 };
 
 export const myCustomDarkTheme: ThemeDefinition = {
   dark: true,
   colors: {
-    background: "#121212",
-    surface: "#121212",
-    primary: "#ff9100",
-    "primary-darken-1": "#FFFFFF",
-    secondary: "#ff9100",
+    background: "#121212", // $dark-bg: #121212; Black light
+    surface: "#000000", // $dark-header-panel: #000000; Black
+    primary: "#ff9100", // $dark-mid-status: #ff9100; Orange
+    "primary-darken-1": "#FFFFFF", // White
+    secondary: "#ff9100", // $dark-mid-status: #ff9100; Orange
     "secondary-darken-1": "#018786",
-    error: "#e54545",
-    info: "#ff9100",
-    success: "#6290C8",
-    warning: "#E8AAEC",
-    title: "#E3B024",
-    whiteText: "#FFFFFF",
+    error: "#e54545", // $dark-high-status: #e54545; Red
+    info: "#ff9100", // $dark-mid-status: #ff9100; Orange
+    success: "#6290C8", // Light Blue
+    warning: "#E8AAEC", // $dark-low-status: #E8AAEC; Pink
+    title: "#E3B024", // $dark-title-app: #E3B024; Gold
+    whiteText: "#FFFFFF", // White
+    nowteText: "#FFFFFF",
+    nowte: "#202020",
+    settingDataBtn: "#ff9100",
+    settingCloseBtn: "#E8AAEC",
   },
 };
 
