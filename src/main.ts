@@ -9,7 +9,7 @@ import router from "./router";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
 import "reflect-metadata";
 
-const myCustomLightTheme: ThemeDefinition = {
+export const myCustomLightTheme: ThemeDefinition = {
   dark: false,
   colors: {
     background: "#FFFFFF",
@@ -25,7 +25,7 @@ const myCustomLightTheme: ThemeDefinition = {
   },
 };
 
-const myCustomDarkTheme: ThemeDefinition = {
+export const myCustomDarkTheme: ThemeDefinition = {
   dark: true,
   colors: {
     background: "#121212",

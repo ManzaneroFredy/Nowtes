@@ -13,7 +13,8 @@
         class="ml-9"
         inset
         label="OFF/ON"
-        @click="toggleTheme"
+        v-model="darkModeStatus"
+        @update:model-value="toggleTheme"
       ></v-switch>
       <v-select
         class="w-25 ml-9"
@@ -37,13 +38,21 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted, ref } from "vue";
 import { useTheme } from "vuetify";
 
+let darkModeStatus = ref(false);
 const theme = useTheme();
 
 function toggleTheme() {
-  theme.global.name = theme.global.current.dark ? "light" : "dark";
+  theme.global.name.value = darkModeStatus.value
+    ? "myCustomDarkTheme"
+    : "myCustomLightTheme";
 }
+
+onMounted(() => {
+  darkModeStatus.value = theme.global.current.value.dark;
+});
 </script>
 
 <style lang="scss" scoped>
