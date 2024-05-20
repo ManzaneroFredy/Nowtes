@@ -25,14 +25,7 @@
     </div>
     <div class="d-flex flex-wrap ml-2 mt-2">
       <div class="ml-5 w-100 justify-center"><h2 class="title">Acción</h2></div>
-      <div class="mt-n3">
-        <v-btn
-          class="mr-2"
-          variant="text"
-          density="comfortable"
-          icon="mdi-pencil"
-          @click="$emit('showEditNoteComponent', 'editNoteComponent')"
-        ></v-btn>
+      <div class="mt-n3 ml-4">
         <v-btn variant="text" density="comfortable" icon="mdi-delete"></v-btn>
         <v-btn
           variant="text"

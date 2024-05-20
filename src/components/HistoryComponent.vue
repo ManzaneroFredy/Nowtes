@@ -5,60 +5,60 @@
     </div>
     <v-virtual-scroll class="scroll-container" :items="mockData">
       <template v-slot:default="{ item }">
-        <NoteComponent
-          :key="item.id"
-          :title="item.title"
-          :substract="item.body"
-          :endline="item.deadline"
-          :status="item.status"
+        <HistoryNoteComponent
+          :key="item.getId()"
+          :title="item.getTitle()"
+          :substract="item.getBody()"
+          :endline="item.getDeadline()"
+          :status="item.getStatus()"
           class="d-flex align-self-start ml-4 my-2"
-        ></NoteComponent>
+        >
+        </HistoryNoteComponent>
       </template>
     </v-virtual-scroll>
   </v-container>
 </template>
 
 <script lang="ts" setup>
-import NoteComponent from "./NoteComponent.vue";
+import HistoryNoteComponent from "./HistoryNoteComponente.vue";
 import Note from "@/domain/entities/Note";
 
-const mockData: Array<Note> = [
-  {
-    id: 1,
-    title: "title 1",
-    body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-    deadline: "21/05/24",
-    status: "Terminado",
-  },
-  {
-    id: 2,
-    title: "title 1",
-    body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-    deadline: "21/05/24",
-    status: "Terminado",
-  },
-  {
-    id: 3,
-    title: "title 1",
-    body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-    deadline: "21/05/24",
-    status: "Terminado",
-  },
-  {
-    id: 4,
-    title: "title 1",
-    body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-    deadline: "21/05/24",
-    status: "Terminado",
-  },
-  {
-    id: 5,
-    title: "title 1",
-    body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-    deadline: "21/05/24",
-    status: "Terminado",
-  },
-];
+let note1 = new Note(
+  1,
+  "title 1",
+  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
+  "en progreso",
+  "21/05/24"
+);
+let note2 = new Note(
+  2,
+  "title 2",
+  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
+  "en progreso",
+  "21/05/24"
+);
+let note3 = new Note(
+  3,
+  "title 1",
+  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
+  "en progreso",
+  "21/05/24"
+);
+let note4 = new Note(
+  4,
+  "title 1",
+  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
+  "en progreso",
+  "21/05/24"
+);
+let note5 = new Note(
+  5,
+  "title 1",
+  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
+  "en progreso",
+  "21/05/24"
+);
+const mockData: Array<Note> = [note1, note2, note3, note4, note5];
 </script>
 
 <style lang="scss" scoped>

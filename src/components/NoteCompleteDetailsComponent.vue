@@ -7,7 +7,7 @@
         size="large"
         @click="$emit('showInitComponent', 'initComponent')"
       ></v-btn>
-      <h1 class="">Nota #{{ note.id }}</h1>
+      <h1 class="">Nota #{{ note.getId() }}</h1>
       <div class="d-flex ml-12 ga-6 justify-end">
         <v-btn
           class="delete-btn"
@@ -21,7 +21,9 @@
           rounded="lg"
           prepend-icon="mdi-pencil"
           variant="flat"
-          @click="$emit('showInitComponent', 'initComponent')"
+          @click="
+            $emit('showEditNoteComponent', 'editNoteComponent', note.getId())
+          "
           >Editar</v-btn
         >
       </div>
@@ -31,15 +33,15 @@
       rounded
     >
       <div class="pt-4 ml-9 container">
-        <h2>{{ note.title }}</h2>
+        <h2>{{ note.getTitle() }}</h2>
         <div class="note-body mb-7 mt-4">
-          <p>{{ note.body }}</p>
+          <p>{{ note.getBody() }}</p>
         </div>
         <div class="mb-12">
           <p class="mb-2">
-            <b>Última modificación:</b> {{ note.lastModification }}
+            <b>Última modificación:</b> {{ note.getLastModification() }}
           </p>
-          <p><b>Entregar antes de : </b> {{ note.deadline }}</p>
+          <p><b>Entregar antes de : </b> {{ note.getDeadline() }}</p>
         </div>
         <div class="d-flex flex-row mb-4 align-center">
           <p><b>Prioridad: </b></p>
@@ -47,7 +49,7 @@
             class="ml-5 priority-indicator d-flex justify-center"
             rounded="lg"
           >
-            <h5 class="align-self-center">{{ note.priority }}</h5>
+            <h5 class="align-self-center">{{ note.getPriority() }}</h5>
           </v-sheet>
         </div>
         <div class="d-flex flex-row mb-16 align-center">
@@ -56,7 +58,7 @@
             class="ml-8 status-indicator d-flex justify-center"
             rounded="lg"
           >
-            <h5 class="align-self-center">{{ note.status }}</h5>
+            <h5 class="align-self-center">{{ note.getStatus() }}</h5>
           </v-sheet>
         </div>
       </div>
@@ -67,15 +69,13 @@
 <script lang="ts" setup>
 import Note from "@/domain/entities/Note";
 
-const note: Note = {
-  id: 1,
-  title: "title 1",
-  body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam aliquam aliquid eaque sint eos laudantium quidem dolore, repellendus eius qui eligendi porro magni impedit facilis, id eveniet, eum praesentium. Non! ",
-  priority: "Alta",
-  status: "En progreso",
-  lastModification: "2024-05-10",
-  deadline: "2024-05-21",
-};
+let note = new Note(
+  1,
+  "title 1",
+  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
+  "en progreso",
+  "21/05/24"
+);
 </script>
 
 <style lang="scss" scoped>
