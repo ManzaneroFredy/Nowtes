@@ -1,5 +1,10 @@
 <template>
-  <v-sheet rounded="xl" class="w-auto bg-nowte">
+  <v-sheet
+    v-if="!isDeleted"
+    rounded="xl"
+    class="w-auto bg-nowte"
+    :class="{ deleting: isDeleting }"
+  >
     <div class="w-50 mr-16 ml-5 mt-2">
       <h2 class="title mb-4 text-nowteText">{{ props.title }}</h2>
       <p class="title text-nowteText">
@@ -31,7 +36,12 @@
         <h2 class="title text-nowteText">Acción</h2>
       </div>
       <div class="mt-n3 ml-4">
-        <v-btn variant="text" density="comfortable" icon="mdi-delete"></v-btn>
+        <v-btn
+          variant="text"
+          density="comfortable"
+          icon="mdi-delete"
+          @click="handleDelete"
+        ></v-btn>
         <v-btn
           variant="text"
           density="comfortable"
@@ -49,7 +59,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from "vue";
+import { defineProps, ref, getCurrentInstance } from "vue";
 
 const props = defineProps({
   title: {
@@ -69,11 +79,27 @@ const props = defineProps({
     required: true,
   },
 });
+
+const isDeleting = ref(false);
+const isDeleted = ref(false);
+const { emit } = getCurrentInstance();
+
+const handleDelete = () => {
+  isDeleting.value = true;
+  setTimeout(() => {
+    isDeleted.value = true;
+    emit("deleteNote", props.title);
+  }, 300); // Duración de la animación
+};
 </script>
 
 <style scoped lang="scss">
 .note {
-  width: 1vh;
+  transition: opacity 0.3s ease;
+}
+
+.deleting {
+  opacity: 0;
 }
 
 .title {
