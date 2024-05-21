@@ -10,7 +10,7 @@
       >
         <div class="w-75">
           <V-form class="mt-13">
-            <h3 class="pa-2">Iniciar Sesión</h3>
+            <h3 class="pa-2">Crear cuenta</h3>
             <small class="pa-2">Bienvenido</small>
             <v-divider></v-divider>
             <v-text-field
@@ -27,9 +27,9 @@
             ></v-text-field>
             <div class="d-flex justify-end register">
               <small
-                @click="$emit('showLoginComponent', 'loginComponent')"
+                @click="$emit('showRegisterComponent', 'registerComponent')"
                 class="pa-2"
-                >Registrarse</small
+                >Iniciar sesión</small
               >
             </div>
             <div class="d-flex justify-center">
@@ -39,8 +39,8 @@
                 class="pa-2"
                 size="large"
                 color="#E3B024"
-                @click="loginUser"
-                >Ingresar</v-btn
+                @click="registerUser"
+                >Registrarse</v-btn
               >
             </div>
           </V-form>
@@ -51,24 +51,25 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
 import { ref, defineEmits } from "vue";
-import LoginUser from "@/domain/usesCases/loginUser";
+import RegisterUser from "@/domain/usesCases/registerUser";
 import MysqlUserRepository from "@/infrastructure/MysqlUserRepository";
 
-const router = useRouter();
 let username = ref("");
 let password = ref("");
+const registerUserUseCase = new RegisterUser(new MysqlUserRepository());
 
 const emit = defineEmits<{
   (e: "showRegisterComponent", value: string): void;
 }>();
 
-let loginUserUseCase = new LoginUser(new MysqlUserRepository());
-
-const loginUser = async () => {
-  if (await loginUserUseCase.loginUser(username.value, password.value)) {
-    router.push("/dashboard");
+const registerUser = async () => {
+  const response = await registerUserUseCase.register(
+    username.value,
+    password.value
+  );
+  if (response) {
+    emit("showRegisterComponent", "registerComponent");
   }
 };
 </script>

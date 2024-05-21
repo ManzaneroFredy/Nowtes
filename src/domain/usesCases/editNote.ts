@@ -18,7 +18,7 @@ export class EditNote {
         throw new Error("No se encontró la nota para editar.");
       }
 
-      await this.noteRepository.saveNote(existingNote);
+      await this.noteRepository.saveNote(updatedNote);
 
       console.log("¡La nota se ha editado exitosamente!");
     } catch (error) {

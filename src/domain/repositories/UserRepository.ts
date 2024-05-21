@@ -1,8 +1,8 @@
 import UserDto from "../dto/UserDTO";
-import User from "../entities/User";
 
 interface UserRepository {
-  saveUser(user: UserDto): Promise<User>;
+  loginUser(user: UserDto): Promise<Response>;
+  saveUser(user: UserDto): Promise<boolean>;
   deleteUser(): Promise<void>;
 }
 
