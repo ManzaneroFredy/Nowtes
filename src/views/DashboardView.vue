@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div class="dashboard-container">
     <DashboardHeaderComponent></DashboardHeaderComponent>
@@ -36,8 +37,8 @@
         @showInitComponentFromCancel="(componetToShow: string) => defineComponentView(componetToShow)"
         :id="currentNote.getId().toString()"
         :title="currentNote.getTitle()"
-        :description="currentNote.getBody()"
-        :date="currentNote.getDeadline()"
+        :description="currentNote.getDescription()"
+        :deadline="currentNote.getDeadline()"
         :priority="currentNote.getPriority()"
         :delete-at-deadline="true"
         v-if="editNoteComponente"

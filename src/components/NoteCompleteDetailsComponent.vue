@@ -7,25 +7,28 @@
         size="large"
         @click="$emit('showInitComponent', 'initComponent')"
       ></v-btn>
-      <h1 class="">Nota #{{ note.getId() }}</h1>
+      <h1 class="">Nota #{{ note?.getId() }}</h1>
       <div class="d-flex ml-12 ga-6 justify-end">
         <v-btn
           class="delete-btn"
           variant="flat"
           prepend-icon="mdi-trash-can"
           rounded="lg"
-          >borrar</v-btn
+          @click="deleteNote"
         >
+          Borrar
+        </v-btn>
         <v-btn
           class="edit-btn"
           rounded="lg"
           prepend-icon="mdi-pencil"
           variant="flat"
           @click="
-            $emit('showEditNoteComponent', 'editNoteComponent', note.getId())
+            $emit('showEditNoteComponent', 'editNoteComponent', note?.getId())
           "
-          >Editar</v-btn
         >
+          Editar
+        </v-btn>
       </div>
     </div>
     <v-sheet
@@ -33,18 +36,18 @@
       rounded
     >
       <div class="pt-4 ml-9 container">
-        <h2 class="text-nowteText">{{ note.getTitle() }}</h2>
+        <h2 class="text-nowteText">{{ note?.getTitle() }}</h2>
         <div class="note-body mb-7 mt-4">
-          <p class="text-nowteText">{{ note.getBody() }}</p>
+          <p class="text-nowteText">{{ note?.getDescription() }}</p>
         </div>
         <div class="mb-12">
           <p class="mb-2">
             <b class="text-nowteText">Última modificación:</b>
-            {{ note.getLastModification() }}
+            {{ note?.getLastModification() }}
           </p>
           <p class="text-nowteText">
             <b class="text-nowteText">Entregar antes de : </b>
-            {{ note.getDeadline() }}
+            {{ note?.getDeadline() }}
           </p>
         </div>
         <div class="d-flex flex-row mb-4 align-center">
@@ -54,7 +57,7 @@
             rounded="lg"
           >
             <h5 class="align-self-center text-nowteText">
-              {{ note.getPriority() }}
+              {{ note?.getPriority() }}
             </h5>
           </v-sheet>
         </div>
@@ -65,7 +68,7 @@
             rounded="lg"
           >
             <h5 class="align-self-center text-nowteText">
-              {{ note.getStatus() }}
+              {{ note?.iscompleted() ? "Active" : "Not Active" }}
             </h5>
           </v-sheet>
         </div>
@@ -75,15 +78,21 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
 import Note from "@/domain/entities/Note";
+import MysqlNoteRepository from "@/domain/repositories/MysqlNoteRepository";
+import { DeleteNote } from "@/domain/usesCases/deleteCompleteNote";
 
-let note = new Note(
-  1,
-  "title 1",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-  "en progreso",
-  "21/05/24"
-);
+const note = ref<Note>();
+const deleteNoteUseCase = new DeleteNote(new MysqlNoteRepository());
+
+const deleteNote = async () => {
+  if (note.value) {
+    await deleteNoteUseCase.deleteNote(note.value.getId());
+  } else {
+    console.error("No hay ninguna nota para eliminar.");
+  }
+};
 </script>
 
 <style lang="scss" scoped>

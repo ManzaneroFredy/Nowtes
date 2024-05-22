@@ -121,8 +121,8 @@ const props = defineProps({
     type: String,
     required: false,
   },
-  date: {
-    type: String,
+  deadline: {
+    type: Date,
     required: false,
   },
   priority: {
@@ -137,7 +137,7 @@ const props = defineProps({
 
 let titleValue = ref(props.title);
 let descriptionValue = ref(props.description);
-let dateValue = ref(props.date);
+let dateValue = ref(props.deadline);
 let priorityValue = ref(props.priority);
 let deleteAtDeadLineValue = ref(props.deleteAtDeadline);
 </script>

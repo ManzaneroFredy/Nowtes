@@ -3,7 +3,7 @@
     <div class="w-50 mr-16 ml-5 mt-2">
       <h2 class="title mb-4 text-nowteText">{{ props.title }}</h2>
       <p class="title text-nowteText">
-        {{ props.substract }}
+        {{ Substract }}
       </p>
     </div>
     <div class="d-flex flex-row flex-wrap mt-2 mr-16">
@@ -11,7 +11,7 @@
         <h2 class="ml-4 mb-3 align-center text-nowteText">Fecha</h2>
         <v-sheet rounded class="align-center deadline d-flex bg-warning">
           <p class="ml-4 justify-center align-center text-nowteText">
-            {{ props.endline }}
+            {{ props.deadline }}
           </p>
         </v-sheet>
       </div>
@@ -22,7 +22,7 @@
           class="justify-center align-center deadline d-flex ml-12 bg-primary"
         >
           <p class="justify-center text-nowteText">
-            {{ props.status }}
+            {{ props.iscompleted ? "Active" : "Not Active" }}
           </p>
         </v-sheet>
       </div>
@@ -55,25 +55,29 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from "vue";
+import { computed, defineProps } from "vue";
 
 const props = defineProps({
   title: {
     type: String,
     required: true,
   },
-  substract: {
+  description: {
     type: String,
     required: true,
   },
-  endline: {
-    type: String,
+  deadline: {
+    type: Date,
     required: true,
   },
-  status: {
-    type: String,
+  iscompleted: {
+    type: Boolean,
     required: true,
   },
+});
+
+const Substract = computed(() => {
+  return props.description.slice(0, 30);
 });
 </script>
 

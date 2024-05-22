@@ -64,10 +64,8 @@ const emit = defineEmits<{
 }>();
 
 const registerUser = async () => {
-  const response = await registerUserUseCase.register(
-    username.value,
-    password.value
-  );
+  const registerDto = { username: username.value, password: password.value };
+  const response = await registerUserUseCase.register(registerDto);
   if (response) {
     emit("showRegisterComponent", "registerComponent");
   }
