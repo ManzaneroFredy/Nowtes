@@ -9,6 +9,10 @@ class MysqlNoteRepository implements NoteRepository {
     return localStorage.getItem('token');
   }
 
+  private getUserId(): string | null {
+    return localStorage.getItem('userId');
+  }
+
   private getHeaders(): HeadersInit {
     const token = this.getToken();
     return {
@@ -19,7 +23,12 @@ class MysqlNoteRepository implements NoteRepository {
 
   async getAllNotes(): Promise<Note[]> {
     try {
-      const response = await fetch("http://localhost:3000/note", {
+      const userId = this.getUserId();
+      if (!userId) {
+        throw new Error("User ID not found in localStorage");
+      }
+
+      const response = await fetch(`http://localhost:3000/note/user/${userId}`, {
         method: "GET",
         headers: this.getHeaders(),
       });
