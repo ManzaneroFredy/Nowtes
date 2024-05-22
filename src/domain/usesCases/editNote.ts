@@ -1,6 +1,7 @@
 import NoteRepository from "../repositories/NoteRepository";
 import Note from "../entities/Note";
 import UserNotesRepository from "../repositories/UserNotesRepository";
+import updatedNoteDto from "../dto/updateNote.dto";
 
 export class EditNote {
   constructor(
@@ -8,19 +9,16 @@ export class EditNote {
     private readonly userNotesRepository: UserNotesRepository
   ) {}
 
-  async editNote(id: string, updatedNote: Note): Promise<void> {
-    // Lógica para editar la nota con el id proporcionado
+  async editNote(id: string, updatedNoteDto: updatedNoteDto ): Promise<void> {
     try {
-      // Primero, obtén la nota existente
       const existingNote = await this.userNotesRepository.findById(id);
 
       if (!existingNote) {
         throw new Error("No se encontró la nota para editar.");
       }
 
-      await this.noteRepository.saveNote(updatedNote);
+      await this.noteRepository.editNote(id, updatedNoteDto);
 
-      console.log("¡La nota se ha editado exitosamente!");
     } catch (error) {
       console.error("Error al editar la nota:", error);
       throw error;

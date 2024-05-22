@@ -1,8 +1,9 @@
-import UserDto from "../dto/UserDTO";
+import LoginDto from "../dto/login.dto";
+import RegisterDto from "../dto/register.dto";
 
 interface UserRepository {
-  loginUser(user: UserDto): Promise<Response>;
-  saveUser(user: UserDto): Promise<boolean>;
+  login(loginDto: LoginDto): Promise<Response>;
+  register(registerDto: RegisterDto): Promise<Response>;
   deleteUser(): Promise<void>;
 }
 

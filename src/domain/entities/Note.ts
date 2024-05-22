@@ -1,51 +1,51 @@
 export class Note {
   constructor(
-    private id: number,
+    private id: string,
     private title: string,
-    private body: string,
-    private status: string,
-    private deadline: string,
-    private substract?: string, // Renamed from 'substract'
+    private description: string,
+    private isCompleted: boolean,
+    private deadline: Date,
+    private userId: string,
     private priority?: string,
-    private lastModification?: string
+    private lastModification?: Date
   ) {}
 
   toJSON(): object {
     return {
       id: this.id,
       title: this.title,
-      body: this.body,
-      status: this.status,
+      description: this.description,
+      isCompleted: this.isCompleted,
       deadline: this.deadline,
-      substract: this.substract,
+      userId: this.userId,
       priority: this.priority,
       lastModification: this.lastModification,
     };
   }
 
   static createNote(
-    id: number,
+    id: string,
     title: string,
-    body: string,
-    status: string,
-    deadline: string,
-    substract?: string,
+    description: string,
+    isCompleted: boolean,
+    deadline: Date,
+    userId: string,
     priority?: string,
-    lastModification?: string
+    lastModification?: Date
   ): Note {
     return new Note(
       id,
       title,
-      body,
-      status,
+      description,
+      isCompleted,
       deadline,
-      substract,
+      userId,
       priority,
       lastModification
     );
   }
 
-  getId(): number {
+  getId(): string {
     return this.id;
   }
 
@@ -53,27 +53,27 @@ export class Note {
     return this.title;
   }
 
-  getBody(): string {
-    return this.body;
+  getDescription(): string {
+    return this.description;
   }
 
-  getStatus(): string {
-    return this.status;
+  iscompleted(): boolean {
+    return this.isCompleted;
   }
 
-  getDeadline(): string {
+  getDeadline(): Date {
     return this.deadline;
   }
 
-  getAbstract(): string | undefined {
-    return this.substract;
+  getUserId(): string | undefined {
+    return this.userId;
   }
 
   getPriority(): string | undefined {
     return this.priority;
   }
 
-  getLastModification(): string | undefined {
+  getLastModification(): Date | undefined {
     return this.lastModification;
   }
 }

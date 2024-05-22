@@ -1,20 +1,21 @@
-/** @jest-environment jsdom */
-import UserDto from "../dto/UserDTO";
+import LoginDto from "../dto/login.dto";
 import UserRepository from "../repositories/UserRepository";
-import LoginDto from "../dto/LoginDTO";
 
-class LoginUser {
+class LoginUserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  public async loginUser(username: string, password: string) {
-    const newUser: UserDto = { username, password };
-    const response = await this.userRepository.loginUser(newUser);
-    response.json().then((data: LoginDto) => {
+  public async login(loginDto: LoginDto): Promise<boolean> {
+    try {
+      const response = await this.userRepository.login(loginDto);
+      const data = await response.json();
       const token = data.token;
       localStorage.setItem("token", token);
       return true;
-    });
+    } catch (error) {
+      console.error("Login failed", error);
+      return false;
+    }
   }
 }
 
-export default LoginUser;
+export default LoginUserUseCase;
