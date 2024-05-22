@@ -6,17 +6,18 @@
         class="btn-new-note"
         prepend-icon="mdi-plus"
         @click="$emit('showCreateNoteComponent', 'createNoteComponent')"
-        >Nueva nota</v-btn
       >
+        Nueva nota
+      </v-btn>
     </div>
-    <v-virtual-scroll class="scroll-container" :items="mockData">
+    <v-virtual-scroll class="scroll-container" :items="notes">
       <template v-slot:default="{ item }">
         <NoteComponent
           :key="item.getId()"
           :title="item.getTitle()"
-          :substract="item.getBody()"
-          :endline="item.getDeadline()"
-          :status="item.getStatus()"
+          :description="item.getDescription()"
+          :deadline="item.getDeadline()"
+          :iscompleted="item.iscompleted()"
           class="d-flex align-self-start ml-4 my-2"
           @showEditNoteComponent="(componentToShow: string) => $emit('showEditNoteComponent', componentToShow, item)"
           @showCompleteNoteDetailsComponent="(componentToShow: string) => $emit('showCompleteNoteDetailsComponent',
@@ -28,55 +29,19 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, onMounted } from "vue";
 import NoteComponent from "./NoteComponent.vue";
 import Note from "@/domain/entities/Note";
-let note1 = new Note(
-  1,
-  "title 1",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-  "en progreso",
-  "2024-05-21",
-  "",
-  "Baja"
-);
-let note2 = new Note(
-  2,
-  "title 2",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-  "en progreso",
-  "2024-05-21",
-  "",
-  "Baja"
-);
-let note3 = new Note(
-  3,
-  "title 1",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-  "en progreso",
-  "2024-05-21",
-  "",
-  "Baja"
-);
-let note4 = new Note(
-  4,
-  "title 1",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-  "en progreso",
-  "2024-05-21",
-  "",
-  "Baja"
-);
-let note5 = new Note(
-  5,
-  "title 1",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-  "en progreso",
-  "2024-05-21",
-  "",
-  "Baja"
-);
+import MysqlNoteRepository from "@/domain/repositories/MysqlNoteRepository";
+import { GetAllNotesUseCase } from "@/domain/usesCases/getAllNotes";
 
-const mockData: Array<Note> = [note1, note2, note3, note4, note5];
+const notes = ref<Note[]>([]);
+
+const getAllNoteUseCase = new GetAllNotesUseCase(new MysqlNoteRepository());
+
+onMounted(async () => {
+  notes.value = await getAllNoteUseCase.getAll();
+});
 </script>
 
 <style lang="scss" scoped>

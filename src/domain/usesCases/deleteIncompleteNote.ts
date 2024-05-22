@@ -15,13 +15,12 @@ export class DeleteNote {
         throw new Error("No se encontró la nota para eliminar.");
       }
   
-      if (existingNote.getStatus() === "En progreso") {
+      if (existingNote.iscompleted()) {
         throw new Error("No se puede eliminar una nota en progreso.");
       }
   
       await this.noteRepository.deleteNoteById(id);
 
-      console.log("¡La nota se ha eliminado exitosamente!");
     } catch (error) {
       console.error("Error al eliminar la nota:", error);
       throw error;

@@ -1,15 +1,16 @@
-import UserDto from "@/domain/dto/UserDTO";
+import LoginDto from "@/domain/dto/login.dto";
+import RegisterDto from "@/domain/dto/register.dto";
 import UserRepository from "@/domain/repositories/UserRepository";
 
 class MysqlUserRepository implements UserRepository {
-  public async loginUser(user: UserDto): Promise<Response> {
+  public async login(loginDto: LoginDto): Promise<Response> {
     try {
       const response = await fetch(`http://localhost:3000/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(user),
+        body: JSON.stringify(loginDto),
       });
 
       if (!response.ok) {
@@ -18,7 +19,6 @@ class MysqlUserRepository implements UserRepository {
           `"Network response was not ok ${response.status} - ${errorText}`
         );
       } else {
-        alert("Login correct");
         return response;
       }
     } catch (error) {
@@ -27,14 +27,14 @@ class MysqlUserRepository implements UserRepository {
     }
   }
 
-  public async saveUser(user: UserDto): Promise<boolean> {
+  public async register(registerDto: RegisterDto): Promise<Response> {
     try {
       const response = await fetch(`http://localhost:3000/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(user),
+        body: JSON.stringify(registerDto),
       });
 
       if (!response.ok) {
@@ -44,7 +44,7 @@ class MysqlUserRepository implements UserRepository {
         );
       } else {
         alert("Usuario correctamente registrado");
-        return true;
+        return response;
       }
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);

@@ -53,21 +53,23 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { ref, defineEmits } from "vue";
-import LoginUser from "@/domain/usesCases/loginUser";
 import MysqlUserRepository from "@/infrastructure/MysqlUserRepository";
+import LoginUserUseCase from "@/domain/usesCases/loginUser";
 
 const router = useRouter();
 let username = ref("");
 let password = ref("");
 
 const emit = defineEmits<{
-  (e: "showRegisterComponent", value: string): void;
+  (e: "showLoginComponent", value: string): void;
 }>();
 
-let loginUserUseCase = new LoginUser(new MysqlUserRepository());
+const loginUserUseCase = new LoginUserUseCase(new MysqlUserRepository());
 
 const loginUser = async () => {
-  if (await loginUserUseCase.loginUser(username.value, password.value)) {
+  const loginDto = { username: username.value, password: password.value };
+  const success = await loginUserUseCase.login(loginDto);
+  if (success) {
     router.push("/dashboard");
   }
 };
