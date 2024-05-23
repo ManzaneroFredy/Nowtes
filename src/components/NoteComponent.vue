@@ -1,5 +1,5 @@
 <template>
-  <v-sheet rounded="xl" class="note-container bg-nowte">
+  <v-sheet rounded="xl" class="w-auto note-container bg-nowte">
     <div class="w-50 mr-16 ml-5 mt-2">
       <h2 class="title mb-4 text-nowteText">{{ props.title }}</h2>
       <p class="title text-nowteText">
@@ -18,6 +18,7 @@
       <div class="w-25 d-flex flex-column title">
         <h2 class="ml-14 mb-4 text-nowteText">Estatus</h2>
         <v-sheet
+          @click="$emit('completeNote')"
           rounded
           class="justify-center align-center deadline d-flex ml-12 bg-primary"
         >
@@ -52,7 +53,7 @@
             $emit(
               'showCompleteNoteDetailsComponent',
               'completeNoteDetailsComponente',
-              props.noteId
+              props.id
             )
           "
         ></v-btn>
@@ -111,7 +112,6 @@ const Substract = computed(() => {
 
 <style scoped lang="scss">
 .note-container {
-  width: 115vh;
   height: 12vh;
 }
 

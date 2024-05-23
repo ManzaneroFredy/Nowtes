@@ -111,7 +111,7 @@ class MysqlNoteRepository implements NoteRepository {
     }
   }
 
-  public async editNote(id: string, updatedNoteDto: updatedNoteDto): Promise<void> {
+  public async editNote(id: string, updatedNoteDto: updatedNoteDto): Promise<boolean> {
     try {
       const response = await fetch(`http://localhost:3000/note/${id}`, {
         method: "PUT",
@@ -119,12 +119,14 @@ class MysqlNoteRepository implements NoteRepository {
         body: JSON.stringify(updatedNoteDto),
       });
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        console.error("response error")
+        return false;
       }
       console.log("Note edited successfully");
+      return true;
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
-      throw error;
+      return false
     }
   }
 }
