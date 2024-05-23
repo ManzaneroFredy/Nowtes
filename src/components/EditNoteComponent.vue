@@ -17,6 +17,7 @@
               Titulo:
             </h3>
             <v-textarea
+              id="titleTextArea"
               class="align-self-center"
               density="compact"
               label="Ingrese un titulo"
@@ -57,7 +58,7 @@
             <input
               class="date-picker bg-nowte"
               type="date"
-              :value="dateValue"
+              v-model="dateValue"
             />
           </div>
         </v-col>
@@ -84,7 +85,10 @@
               @click="$emit('showInitComponentFromCancel', 'initComponent')"
               >Cancelar</v-btn
             >
-            <v-btn class="save-btn font-weight-bold" rouneded="lg"
+            <v-btn
+              class="save-btn font-weight-bold"
+              rouneded="lg"
+              @click="editNote"
               >Guardar</v-btn
             >
           </div>
@@ -95,12 +99,29 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, ref } from "vue";
+import { defineProps, ref, defineEmits } from "vue";
+import Note from "@/domain/entities/Note";
+import { EditNote } from "@/domain/usesCases/editNote";
+import MysqlNoteRepository from "@/infrastructure/MysqlNoteRepository";
+import UserNotesRepository from "@/repositories/UserNotesRepository";
+import updatedNoteDto from "@/domain/dto/updateNote";
+
+const note = ref<Note>();
+const editNoteUseCase = new EditNote(new MysqlNoteRepository());
+
 const priorities = ["Baja", "Media", "Alta"];
+
+const emit = defineEmits<{
+  (e: "showInitComponent", value: string): void;
+}>();
 
 const props = defineProps({
   id: {
-    type: Number,
+    type: String,
+    required: true,
+  },
+  noteId: {
+    type: String,
     required: true,
   },
   title: {
@@ -129,6 +150,21 @@ let titleValue = ref(props.title);
 let descriptionValue = ref(props.description);
 let dateValue = ref(props.deadline);
 let priorityValue = ref(props.priority);
+
+const editNote = async () => {
+  const updatedDto: updatedNoteDto = {
+    title: titleValue.value,
+    description: descriptionValue.value,
+    deadline: dateValue.value,
+    priority: priorityValue.value,
+  };
+  if (props.noteId) {
+    await editNoteUseCase.editNote(props.noteId, updatedDto);
+    emit("showInitComponent", "initComponent");
+  } else {
+    console.error("Error al editar.");
+  }
+};
 </script>
 
 <style lang="scss" scoped>

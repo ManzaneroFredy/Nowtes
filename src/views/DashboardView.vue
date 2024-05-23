@@ -44,6 +44,8 @@
       <EditNoteComponent
         @showInitComponent="(componetToShow: string) => defineComponentView(componetToShow)"
         @showInitComponentFromCancel="(componetToShow: string) => defineComponentView(componetToShow)"
+        @noteEdited="(componetToShow: string) => defineComponentView(componetToShow)"
+        :noteId="currentNote.getId()"
         :id="noteIndex + 1"
         :title="currentNote.getTitle()"
         :description="currentNote.getDescription()"
