@@ -18,6 +18,7 @@
       <div class="w-25 d-flex flex-column title">
         <h2 class="ml-14 mb-4 text-nowteText">Estatus</h2>
         <v-sheet
+          @click="$emit('completeNote')"
           rounded
           class="justify-center align-center deadline d-flex ml-12 bg-primary"
         >

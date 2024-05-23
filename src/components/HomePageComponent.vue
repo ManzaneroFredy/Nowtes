@@ -12,7 +12,7 @@
     </div>
     <v-virtual-scroll
       class="scroll-container w-100"
-      :items="notes"
+      :items="completeNotes"
       v-if="notes.length !== 0"
     >
       <template v-slot:default="{ item, index }">
@@ -26,6 +26,11 @@
           @showEditNoteComponent="(componentToShow: string) => $emit('showEditNoteComponent', componentToShow, item, index)"
           @showCompleteNoteDetailsComponent="(componentToShow: string) => $emit('showCompleteNoteDetailsComponent',
               componentToShow, item)"
+          @completeNote="
+            () => {
+              editNote(item.getId());
+            }
+          "
         ></NoteComponent>
       </template>
     </v-virtual-scroll>
@@ -58,14 +63,27 @@ import NoteComponent from "./NoteComponent.vue";
 import Note from "@/domain/entities/Note";
 import MysqlNoteRepository from "@/infrastructure/MysqlNoteRepository";
 import { GetAllNotesUseCase } from "@/domain/usesCases/getAllNotes";
+import { EditNote } from "@/domain/usesCases/editNote";
+import updatedNoteDto from "@/domain/dto/updateNote.dto";
 
+const editNoteUseCase = new EditNote(new MysqlNoteRepository());
 const notes = ref<Note[]>([]);
+let completeNotes = ref<Note[]>([]);
 
 const getAllNoteUseCase = new GetAllNotesUseCase(new MysqlNoteRepository());
 
 onMounted(async () => {
   notes.value = await getAllNoteUseCase.getAll();
+  completeNotes.value = notes.value.filter((note) => !note.iscompleted());
 });
+
+const editNote = async (noteId: string) => {
+  let updateNoteDto: updatedNoteDto = { isCompleted: true };
+  const success = await editNoteUseCase.editNote(noteId, updateNoteDto);
+  if (success) {
+    alert("Nota acabada");
+  }
+};
 </script>
 
 <style lang="scss" scoped>

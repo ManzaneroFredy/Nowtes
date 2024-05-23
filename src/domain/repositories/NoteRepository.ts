@@ -7,7 +7,7 @@ interface NoteRepository {
   getAllNotes(): Promise<Note[]>;
   getNoteById(id: string): Promise<Note>;
   deleteNoteById(id: string): Promise<void>;
-  editNote(id: string, updatedNoteDto: updatedNoteDto): Promise<void>;
+  editNote(id: string, updatedNoteDto: updatedNoteDto): Promise<boolean>;
 }
 
 export default NoteRepository;
