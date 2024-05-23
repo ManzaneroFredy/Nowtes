@@ -12,8 +12,8 @@
     </div>
     <v-virtual-scroll
       class="scroll-container w-100"
-      :items="notes"
-      v-if="notes.length !== 0"
+      :items="completeNotes"
+      v-if="completeNotes.length !== 0"
     >
       <template v-slot:default="{ item, index }">
         <NoteComponent
@@ -27,6 +27,11 @@
           @showEditNoteComponent="(componentToShow: string) => $emit('showEditNoteComponent', componentToShow, item, index)"
           @showCompleteNoteDetailsComponent="(componentToShow: string) => $emit('showCompleteNoteDetailsComponent',
               componentToShow, item)"
+          @completeNote="
+            () => {
+              editNote(item.getId());
+            }
+          "
         ></NoteComponent>
       </template>
     </v-virtual-scroll>
@@ -54,25 +59,44 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import NoteComponent from "./NoteComponent.vue";
 import Note from "@/domain/entities/Note";
 import MysqlNoteRepository from "@/infrastructure/MysqlNoteRepository";
 import { GetAllNotesUseCase } from "@/domain/usesCases/getAllNotes";
+import { EditNote } from "@/domain/usesCases/editNote";
+import updatedNoteDto from "@/domain/dto/updateNote.dto";
 
+const editNoteUseCase = new EditNote(new MysqlNoteRepository());
 const notes = ref<Note[]>([]);
+let completeNotes = ref<Note[]>([]);
+const success = ref(false);
 
 const getAllNoteUseCase = new GetAllNotesUseCase(new MysqlNoteRepository());
 
 onMounted(async () => {
   notes.value = await getAllNoteUseCase.getAll();
+  completeNotes.value = notes.value.filter((note) => !note.iscompleted());
 });
+
+const editNote = async (noteId: string) => {
+  let updateNoteDto: updatedNoteDto = { isCompleted: true };
+  success.value = await editNoteUseCase.editNote(noteId, updateNoteDto);
+  if (success.value) {
+    alert("Nota acabada");
+  }
+};
 
 const emitFunction = async (eventName: string) => {
   if (eventName === "noteDeleted" || eventName === "noteEdited") {
     notes.value = await getAllNoteUseCase.getAll();
   }
 };
+
+watch(success, async () => {
+  notes.value = await getAllNoteUseCase.getAll();
+  completeNotes.value = notes.value.filter((note) => !note.iscompleted());
+});
 </script>
 
 <style lang="scss" scoped>
