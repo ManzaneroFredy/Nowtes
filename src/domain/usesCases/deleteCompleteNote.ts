@@ -13,9 +13,7 @@ export class DeleteNote {
         throw new Error("No se encontró la nota para eliminar.");
       }
 
-      if (existingNote.iscompleted()) {
-        throw new Error("No se puede eliminar una nota finalizada.");
-      }
+     
       await this.noteRepository.deleteNoteById(id);
 
     } catch (error) {

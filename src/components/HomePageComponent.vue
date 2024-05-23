@@ -17,11 +17,13 @@
     >
       <template v-slot:default="{ item, index }">
         <NoteComponent
+          :id="item.getId()"
           :key="item.getId()"
           :title="item.getTitle()"
           :description="item.getDescription()"
           :deadline="item.getDeadline()"
           :iscompleted="item.iscompleted()"
+          :emitFunction="emitFunction"
           class="d-flex justify-center ml-4 my-2"
           @showEditNoteComponent="(componentToShow: string) => $emit('showEditNoteComponent', componentToShow, item, index)"
           @showCompleteNoteDetailsComponent="(componentToShow: string) => $emit('showCompleteNoteDetailsComponent',
@@ -58,7 +60,6 @@ import NoteComponent from "./NoteComponent.vue";
 import Note from "@/domain/entities/Note";
 import MysqlNoteRepository from "@/infrastructure/MysqlNoteRepository";
 import { GetAllNotesUseCase } from "@/domain/usesCases/getAllNotes";
-import { idText } from "typescript";
 
 const notes = ref<Note[]>([]);
 
@@ -67,6 +68,12 @@ const getAllNoteUseCase = new GetAllNotesUseCase(new MysqlNoteRepository());
 onMounted(async () => {
   notes.value = await getAllNoteUseCase.getAll();
 });
+
+const emitFunction = async (eventName: string) => {
+  if (eventName === "noteDeleted") {
+    notes.value = await getAllNoteUseCase.getAll();
+  }
+};
 </script>
 
 <style lang="scss" scoped>
