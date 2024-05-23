@@ -13,9 +13,10 @@
         v-if="initComponent"
         @showCompleteNoteDetailsComponent="(componetToShow: string) => defineComponentView(componetToShow)"
         @showCreateNoteComponent="(componetToShow: string) => defineComponentView(componetToShow)"
-        @showEditNoteComponent="(componetToShow: string, noteItem: Note) =>{
+        @showEditNoteComponent="(componetToShow: string, noteItem: Note, index: number) =>{
            defineComponentView(componetToShow)
            currentNote = noteItem;
+           noteIndex = index
         }"
       ></HomePageComponent>
       <HistoryComponent v-if="historialComponent"></HistoryComponent>
@@ -28,6 +29,7 @@
       ></NoteCompleteDetailsComponent>
       <NewNoteComponent
         v-if="createNoteComponent"
+        @showinitComponentFromSave="(componetToShow: string) => defineComponentView(componetToShow)"
         @showInitComponent="(componetToShow: string) => defineComponentView(componetToShow)"
         @showInitComponentFromCancel="(componetToShow: string) => defineComponentView(componetToShow)"
       >
@@ -35,7 +37,7 @@
       <EditNoteComponent
         @showInitComponent="(componetToShow: string) => defineComponentView(componetToShow)"
         @showInitComponentFromCancel="(componetToShow: string) => defineComponentView(componetToShow)"
-        :id="currentNote.getId().toString()"
+        :id="noteIndex + 1"
         :title="currentNote.getTitle()"
         :description="currentNote.getDescription()"
         :deadline="currentNote.getDeadline()"
@@ -67,6 +69,7 @@ let createNoteComponent = ref(false);
 let noteCompleteDetailsComponent = ref(false);
 let editNoteComponente = ref(false);
 let currentNote: Note;
+let noteIndex = 0;
 
 //Strategy pattern
 const componentsAvailables: ComponentsAvailablesInterface = {

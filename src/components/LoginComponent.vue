@@ -52,17 +52,13 @@
 
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
 import MysqlUserRepository from "@/infrastructure/MysqlUserRepository";
 import LoginUserUseCase from "@/domain/usesCases/loginUser";
 
 const router = useRouter();
 let username = ref("");
 let password = ref("");
-
-const emit = defineEmits<{
-  (e: "showLoginComponent", value: string): void;
-}>();
 
 const loginUserUseCase = new LoginUserUseCase(new MysqlUserRepository());
 

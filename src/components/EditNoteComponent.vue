@@ -77,16 +77,6 @@
       </v-row>
       <v-row no-gutters>
         <v-col>
-          <div class="d-flex align-center ml-10 w-75">
-            <v-checkbox
-              label="Borrar cuando la tarea cambie al estado 'Finalizada'"
-              v-model="deleteAtDeadLineValue"
-            ></v-checkbox>
-          </div>
-        </v-col>
-      </v-row>
-      <v-row no-gutters>
-        <v-col>
           <div class="d-flex align-center mb-3 ml-12 w-75 ga-8">
             <v-btn
               class="decline-btn font-weight-bold"
@@ -110,7 +100,7 @@ const priorities = ["Baja", "Media", "Alta"];
 
 const props = defineProps({
   id: {
-    type: String,
+    type: Number,
     required: true,
   },
   title: {

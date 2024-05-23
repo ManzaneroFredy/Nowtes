@@ -80,7 +80,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import Note from "@/domain/entities/Note";
-import MysqlNoteRepository from "@/domain/repositories/MysqlNoteRepository";
+import MysqlNoteRepository from "@/infrastructure/MysqlNoteRepository";
 import { DeleteNote } from "@/domain/usesCases/deleteCompleteNote";
 
 const note = ref<Note>();

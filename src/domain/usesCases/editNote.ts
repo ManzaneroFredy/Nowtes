@@ -9,7 +9,7 @@ export class EditNote {
     private readonly userNotesRepository: UserNotesRepository
   ) {}
 
-  async editNote(id: string, updatedNoteDto: updatedNoteDto ): Promise<void> {
+  async editNote(id: string, updatedNoteDto: updatedNoteDto): Promise<void> {
     try {
       const existingNote = await this.userNotesRepository.findById(id);
 
@@ -18,7 +18,6 @@ export class EditNote {
       }
 
       await this.noteRepository.editNote(id, updatedNoteDto);
-
     } catch (error) {
       console.error("Error al editar la nota:", error);
       throw error;

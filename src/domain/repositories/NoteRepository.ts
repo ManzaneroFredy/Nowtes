@@ -3,7 +3,7 @@ import updatedNoteDto from "../dto/updateNote.dto";
 import Note from "../entities/Note";
 
 interface NoteRepository {
-  createNote(createNoteDto: CreateNoteDto): Promise<void>;
+  createNote(createNoteDto: CreateNoteDto): Promise<boolean>;
   getAllNotes(): Promise<Note[]>;
   getNoteById(id: string): Promise<Note>;
   deleteNoteById(id: string): Promise<void>;

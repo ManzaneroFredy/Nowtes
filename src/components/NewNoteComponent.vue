@@ -22,6 +22,7 @@
               no-resize
               rounded="lg"
               rows="2"
+              v-model="title"
             ></v-textarea>
           </div>
         </v-col>
@@ -38,6 +39,7 @@
               no-resize
               rounded="lg"
               rows="8"
+              v-model="description"
             ></v-textarea>
           </div>
         </v-col>
@@ -46,7 +48,13 @@
         <v-col>
           <div class="d-flex align-center mb-6 ml-6">
             <h3 class="mr-12 ml-6">Fecha:</h3>
-            <input class="date-picker bg-nowte" type="date" name="" id="" />
+            <input
+              class="date-picker bg-nowte"
+              type="date"
+              name=""
+              id=""
+              v-model="deadline"
+            />
           </div>
         </v-col>
       </v-row>
@@ -58,16 +66,8 @@
               class=""
               label="Selecciona la prioridad"
               :items="priorities"
+              v-model="priority"
             ></v-select>
-          </div>
-        </v-col>
-      </v-row>
-      <v-row no-gutters>
-        <v-col>
-          <div class="d-flex align-center ml-10 w-75">
-            <v-checkbox
-              label="Borrar cuando la tarea cambie al estado 'Finalizada'"
-            ></v-checkbox>
           </div>
         </v-col>
       </v-row>
@@ -80,7 +80,10 @@
               @click="$emit('showInitComponentFromCancel', 'initComponent')"
               >Cancelar</v-btn
             >
-            <v-btn class="save-btn font-weight-bold" rouneded="lg"
+            <v-btn
+              @click="createNewNote"
+              class="save-btn font-weight-bold"
+              rouneded="lg"
               >Guardar</v-btn
             >
           </div>
@@ -91,7 +94,39 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, defineEmits } from "vue";
+import CreateNoteDto from "@/domain/dto/createNote.dto";
+import { CreateNoteUseCase } from "@/domain/usesCases/createNote";
+import MysqlNoteRepository from "@/infrastructure/MysqlNoteRepository";
+
 const priorities = ["Baja", "Media", "Alta"];
+const createNoteUseCase = new CreateNoteUseCase(new MysqlNoteRepository());
+const emit = defineEmits<{
+  (e: "showinitComponentFromSave", value: string): void;
+  (e: "showInitComponent", value: string): void;
+  (e: "showInitComponentFromCancel", value: string): void;
+}>();
+
+let title = ref("");
+let description = ref("");
+let priority = ref("");
+let deadline = ref("");
+let userId = localStorage.getItem("userId");
+
+const createNewNote = async () => {
+  const noteDto: CreateNoteDto = {
+    title: title.value,
+    description: description.value,
+    priority: priority.value,
+    deadline: new Date(deadline.value),
+    userId: userId || "0101010",
+  };
+  const success = await createNoteUseCase.createNote(noteDto);
+  if (success) {
+    alert("Nota creada correctamente");
+    emit("showinitComponentFromSave", "initComponent");
+  }
+};
 </script>
 
 <style lang="scss" scoped>
