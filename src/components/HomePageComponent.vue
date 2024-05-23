@@ -58,7 +58,6 @@ import NoteComponent from "./NoteComponent.vue";
 import Note from "@/domain/entities/Note";
 import MysqlNoteRepository from "@/infrastructure/MysqlNoteRepository";
 import { GetAllNotesUseCase } from "@/domain/usesCases/getAllNotes";
-import { idText } from "typescript";
 
 const notes = ref<Note[]>([]);
 

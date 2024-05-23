@@ -3,14 +3,14 @@
     <div class="title-page ml-4 mt-4 mb-4 d-flex flex-row align-center">
       <h1 class="w-100 justify-start text-title">Historial</h1>
     </div>
-    <v-virtual-scroll class="scroll-container" :items="mockData">
+    <v-virtual-scroll class="scroll-container w-100" :items="uncompletedNotes">
       <template v-slot:default="{ item }">
         <HistoryNoteComponent
           :key="item.getId()"
           :title="item.getTitle()"
-          :substract="item.getBody()"
-          :endline="item.getDeadline()"
-          :status="item.getStatus()"
+          :substract="item.getDescription()"
+          :endline="item.getDeadline().toLocaleDateString()"
+          :isCompleted="item.iscompleted()"
           class="d-flex align-self-start ml-4 my-2"
         >
         </HistoryNoteComponent>
@@ -20,45 +20,21 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, onMounted } from "vue";
 import HistoryNoteComponent from "./HistoryNoteComponente.vue";
+import { GetAllNotesUseCase } from "@/domain/usesCases/getAllNotes";
+import MysqlNoteRepository from "@/infrastructure/MysqlNoteRepository";
 import Note from "@/domain/entities/Note";
 
-let note1 = new Note(
-  1,
-  "title 1",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-  "en progreso",
-  "21/05/24"
-);
-let note2 = new Note(
-  2,
-  "title 2",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-  "en progreso",
-  "21/05/24"
-);
-let note3 = new Note(
-  3,
-  "title 1",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-  "en progreso",
-  "21/05/24"
-);
-let note4 = new Note(
-  4,
-  "title 1",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-  "en progreso",
-  "21/05/24"
-);
-let note5 = new Note(
-  5,
-  "title 1",
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis est voluptatum reiciendis ipsam debitis tempore illo fugiat similique soluta.",
-  "en progreso",
-  "21/05/24"
-);
-const mockData: Array<Note> = [note1, note2, note3, note4, note5];
+const notes = ref<Note[]>([]);
+let uncompletedNotes = ref<Note[]>([]);
+
+const getAllNoteUseCase = new GetAllNotesUseCase(new MysqlNoteRepository());
+
+onMounted(async () => {
+  notes.value = await getAllNoteUseCase.getAll();
+  uncompletedNotes.value = notes.value.filter((note) => note.iscompleted());
+});
 </script>
 
 <style lang="scss" scoped>
@@ -86,7 +62,6 @@ const mockData: Array<Note> = [note1, note2, note3, note4, note5];
 }
 
 .scroll-container {
-  display: flex;
   height: 80vh;
 }
 </style>

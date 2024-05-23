@@ -1,9 +1,9 @@
 <template>
-  <v-sheet rounded="xl" class="w-auto bg-nowte">
+  <v-sheet rounded="xl" class="w-auto note-container bg-nowte">
     <div class="w-50 mr-16 ml-5 mt-2">
       <h2 class="title mb-4 text-nowteText">{{ props.title }}</h2>
       <p class="title text-nowteText">
-        {{ props.substract }}
+        {{ Substract }}
       </p>
     </div>
     <div class="d-flex flex-row flex-wrap mt-2 mr-16">
@@ -22,7 +22,9 @@
           rounded
           class="justify-center align-center deadline d-flex ml-12 text-nowteText bg-primary"
         >
-          <p class="justify-center">{{ props.status }}</p>
+          <p class="justify-center">
+            {{ props.isCompleted ? "Not Active" : "Active" }}
+          </p>
         </v-sheet>
       </div>
     </div>
@@ -49,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from "vue";
+import { defineProps, computed } from "vue";
 
 const props = defineProps({
   title: {
@@ -64,10 +66,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  status: {
-    type: String,
+  isCompleted: {
+    type: Boolean,
     required: true,
   },
+});
+
+const Substract = computed(() => {
+  return props.substract.slice(0, 30);
 });
 </script>
 
@@ -84,5 +90,8 @@ const props = defineProps({
   width: 6.25rem;
   height: 1.813rem;
   background-color: $light-low-status;
+}
+.note-container {
+  height: 12vh;
 }
 </style>
