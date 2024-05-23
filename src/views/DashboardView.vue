@@ -11,7 +11,7 @@
       <SettingsCommponent v-if="preferenceComponent"></SettingsCommponent>
       <HomePageComponent
         v-if="initComponent"
-        @showCompleteNoteDetailsComponent="(componetToShow: string) => defineComponentView(componetToShow)"
+        @showCompleteNoteDetailsComponent="(componetToShow: string, noteItem: Note) => { defineComponentView(componetToShow); currentNote = noteItem }"
         @showCreateNoteComponent="(componetToShow: string) => defineComponentView(componetToShow)"
         @showEditNoteComponent="(componetToShow: string, noteItem: Note, index: number) =>{
            defineComponentView(componetToShow)
@@ -26,6 +26,13 @@
         @showEditNoteComponent="(componetToShow: string, id: string) =>{
            defineComponentView(componetToShow)
         }"
+        :noteId="currentNote.getId()"
+        :id="noteIndex + 1"
+        :title="currentNote.getTitle()"
+        :description="currentNote.getDescription()"
+        :deadline="currentNote.getDeadline()"
+        :priority="currentNote.getPriority()"
+        :delete-at-deadline="true"
       ></NoteCompleteDetailsComponent>
       <NewNoteComponent
         v-if="createNoteComponent"
@@ -74,21 +81,31 @@ let noteIndex = 0;
 //Strategy pattern
 const componentsAvailables: ComponentsAvailablesInterface = {
   // eslint-disable-next-line prettier/prettier, no-undef
-  "initComponent": (showComponent: boolean) => {initComponent.value = showComponent},
+  initComponent: (showComponent: boolean) => {
+    initComponent.value = showComponent;
+  },
   // eslint-disable-next-line prettier/prettier
-  "historialComponent": (showComponent: boolean) => {historialComponent.value = showComponent},
+  historialComponent: (showComponent: boolean) => {
+    historialComponent.value = showComponent;
+  },
   // eslint-disable-next-line prettier/prettier
-  "preferenceComponent": (showComponent: boolean) => {preferenceComponent.value = showComponent},
+  preferenceComponent: (showComponent: boolean) => {
+    preferenceComponent.value = showComponent;
+  },
   // eslint-disable-next-line prettier/prettier
-  "createNoteComponent": (showComponent: boolean) => {createNoteComponent.value = showComponent},
+  createNoteComponent: (showComponent: boolean) => {
+    createNoteComponent.value = showComponent;
+  },
   // eslint-disable-next-line prettier/prettier
-  "completeDetailComponent": (showComponent: boolean) => {noteCompleteDetailsComponent.value = showComponent},
+  completeDetailComponent: (showComponent: boolean) => {
+    noteCompleteDetailsComponent.value = showComponent;
+  },
   // eslint-disable-next-line prettier/prettier
-  "editNoteComponent": (showComponent: boolean) => {
+  editNoteComponent: (showComponent: boolean) => {
     editNoteComponente.value = showComponent;
   },
   // eslint-disable-next-line prettier/prettier
-  "completeNoteDetailsComponente": (showComponent: boolean) => {
+  completeNoteDetailsComponente: (showComponent: boolean) => {
     noteCompleteDetailsComponent.value = showComponent;
   },
 };

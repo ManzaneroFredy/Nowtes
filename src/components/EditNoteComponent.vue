@@ -129,7 +129,6 @@ let titleValue = ref(props.title);
 let descriptionValue = ref(props.description);
 let dateValue = ref(props.deadline);
 let priorityValue = ref(props.priority);
-let deleteAtDeadLineValue = ref(props.deleteAtDeadline);
 </script>
 
 <style lang="scss" scoped>

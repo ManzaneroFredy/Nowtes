@@ -1,5 +1,5 @@
 <template>
-  <v-sheet rounded="xl" class="note-container bg-nowte">
+  <v-sheet rounded="xl" class="w-auto note-container bg-nowte">
     <div class="w-50 mr-16 ml-5 mt-2">
       <h2 class="title mb-4 text-nowteText">{{ props.title }}</h2>
       <p class="title text-nowteText">
@@ -38,7 +38,13 @@
           icon="mdi-pencil"
           @click="$emit('showEditNoteComponent', 'editNoteComponent')"
         ></v-btn>
-        <v-btn variant="text" density="comfortable" icon="mdi-delete"></v-btn>
+        <v-btn
+          variant="text"
+          density="comfortable"
+          icon="mdi-delete"
+          @click="deleteNote"
+        >
+        </v-btn>
         <v-btn
           variant="text"
           density="comfortable"
@@ -46,7 +52,8 @@
           @click="
             $emit(
               'showCompleteNoteDetailsComponent',
-              'completeNoteDetailsComponente'
+              'completeNoteDetailsComponente',
+              props.id
             )
           "
         ></v-btn>
@@ -57,8 +64,25 @@
 
 <script lang="ts" setup>
 import { computed, defineProps } from "vue";
+import { DeleteNote } from "@/domain/usesCases/deleteCompleteNote";
+import MysqlNoteRepository from "@/infrastructure/MysqlNoteRepository";
+
+const deleteNoteUseCase = new DeleteNote(new MysqlNoteRepository());
+
+const deleteNote = async () => {
+  if (props.id) {
+    await deleteNoteUseCase.deleteNote(props.id);
+    props.emitFunction("noteDeleted");
+  } else {
+    console.error("No hay ninguna nota para eliminar.");
+  }
+};
 
 const props = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -75,6 +99,10 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  emitFunction: {
+    type: Function,
+    required: true,
+  },
 });
 
 const Substract = computed(() => {
@@ -84,7 +112,6 @@ const Substract = computed(() => {
 
 <style scoped lang="scss">
 .note-container {
-  width: 115vh;
   height: 12vh;
 }
 

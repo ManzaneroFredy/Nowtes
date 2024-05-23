@@ -17,11 +17,12 @@
     >
       <template v-slot:default="{ item, index }">
         <NoteComponent
-          :key="item.getId()"
+          :id="item.getId()"
           :title="item.getTitle()"
           :description="item.getDescription()"
           :deadline="item.getDeadline()"
           :iscompleted="item.iscompleted()"
+          :emitFunction="emitFunction"
           class="d-flex justify-center ml-4 my-2"
           @showEditNoteComponent="(componentToShow: string) => $emit('showEditNoteComponent', componentToShow, item, index)"
           @showCompleteNoteDetailsComponent="(componentToShow: string) => $emit('showCompleteNoteDetailsComponent',
@@ -82,6 +83,12 @@ const editNote = async (noteId: string) => {
   const success = await editNoteUseCase.editNote(noteId, updateNoteDto);
   if (success) {
     alert("Nota acabada");
+  }
+};
+
+const emitFunction = async (eventName: string) => {
+  if (eventName === "noteDeleted") {
+    notes.value = await getAllNoteUseCase.getAll();
   }
 };
 </script>

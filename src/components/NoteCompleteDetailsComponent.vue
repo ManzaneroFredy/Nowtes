@@ -7,7 +7,7 @@
         size="large"
         @click="$emit('showInitComponent', 'initComponent')"
       ></v-btn>
-      <h1 class="">Nota #{{ note?.getId() }}</h1>
+      <h1 class="">Nota #{{ props.id }}</h1>
       <div class="d-flex ml-12 ga-6 justify-end">
         <v-btn
           class="delete-btn"
@@ -36,18 +36,14 @@
       rounded
     >
       <div class="pt-4 ml-9 container">
-        <h2 class="text-nowteText">{{ note?.getTitle() }}</h2>
+        <h2 class="text-nowteText">{{ titleValue }}</h2>
         <div class="note-body mb-7 mt-4">
-          <p class="text-nowteText">{{ note?.getDescription() }}</p>
+          <p class="text-nowteText">{{ descriptionValue }}</p>
         </div>
         <div class="mb-12">
-          <p class="mb-2">
-            <b class="text-nowteText">Última modificación:</b>
-            {{ note?.getLastModification() }}
-          </p>
           <p class="text-nowteText">
             <b class="text-nowteText">Entregar antes de : </b>
-            {{ note?.getDeadline() }}
+            {{ dateValue }}
           </p>
         </div>
         <div class="d-flex flex-row mb-4 align-center">
@@ -57,7 +53,7 @@
             rounded="lg"
           >
             <h5 class="align-self-center text-nowteText">
-              {{ note?.getPriority() }}
+              {{ priorityValue }}
             </h5>
           </v-sheet>
         </div>
@@ -78,14 +74,60 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
 import Note from "@/domain/entities/Note";
 import MysqlNoteRepository from "@/infrastructure/MysqlNoteRepository";
 import { DeleteNote } from "@/domain/usesCases/deleteCompleteNote";
+// import { GetNoteUseCase } from "@/domain/usesCases/getNote";
 
 const note = ref<Note>();
 const deleteNoteUseCase = new DeleteNote(new MysqlNoteRepository());
+// const getNoteUseCase = new GetNoteUseCase(new MysqlNoteRepository());
+/*
+const props = defineProps({ noteId: { type: String, required: true } });
 
+const getNote = async () => {
+  if (props.noteId) {
+    note.value = GetNoteUseCase.getById(props.noteId);
+  } else {
+    console.log("Error: Nota no encontrada");
+  }
+};
+*/
+const priorities = ["Baja", "Media", "Alta"];
+
+const props = defineProps({
+  id: {
+    type: Number,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: false,
+  },
+  description: {
+    type: String,
+    required: false,
+  },
+  deadline: {
+    type: Date,
+    required: false,
+  },
+  priority: {
+    type: String,
+    required: false,
+  },
+  deleteAtDeadline: {
+    type: Boolean,
+    requirte: false,
+  },
+});
+
+let titleValue = ref(props.title);
+let descriptionValue = ref(props.description);
+let dateValue = ref(props.deadline);
+let priorityValue = ref(props.priority);
+let deleteAtDeadLineValue = ref(props.deleteAtDeadline);
 const deleteNote = async () => {
   if (note.value) {
     await deleteNoteUseCase.deleteNote(note.value.getId());
