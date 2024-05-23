@@ -37,7 +37,13 @@
           icon="mdi-pencil"
           @click="$emit('showEditNoteComponent', 'editNoteComponent')"
         ></v-btn>
-        <v-btn variant="text" density="comfortable" icon="mdi-delete"></v-btn>
+        <v-btn
+          variant="text"
+          density="comfortable"
+          icon="mdi-delete"
+          @click="deleteNote"
+        >
+        </v-btn>
         <v-btn
           variant="text"
           density="comfortable"
@@ -56,8 +62,25 @@
 
 <script lang="ts" setup>
 import { computed, defineProps } from "vue";
+import { DeleteNote } from "@/domain/usesCases/deleteCompleteNote";
+import MysqlNoteRepository from "@/infrastructure/MysqlNoteRepository";
+
+const deleteNoteUseCase = new DeleteNote(new MysqlNoteRepository());
+
+const deleteNote = async () => {
+  if (props.id) {
+    await deleteNoteUseCase.deleteNote(props.id);
+    props.emitFunction("noteDeleted");
+  } else {
+    console.error("No hay ninguna nota para eliminar.");
+  }
+};
 
 const props = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -72,6 +95,10 @@ const props = defineProps({
   },
   iscompleted: {
     type: Boolean,
+    required: true,
+  },
+  emitFunction: {
+    type: Function,
     required: true,
   },
 });
