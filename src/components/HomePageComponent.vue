@@ -88,7 +88,7 @@ const editNote = async (noteId: string) => {
 };
 
 const emitFunction = async (eventName: string) => {
-  if (eventName === "noteDeleted") {
+  if (eventName === "noteDeleted" || eventName === "noteEdited") {
     notes.value = await getAllNoteUseCase.getAll();
   }
 };

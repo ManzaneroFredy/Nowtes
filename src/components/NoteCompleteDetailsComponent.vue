@@ -7,7 +7,7 @@
         size="large"
         @click="$emit('showInitComponent', 'initComponent')"
       ></v-btn>
-      <h1 class="">Nota #{{ props.id }}</h1>
+      <h1 class="">Nota Actual</h1>
       <div class="d-flex ml-12 ga-6 justify-end">
         <v-btn
           class="delete-btn"
@@ -98,7 +98,7 @@ const priorities = ["Baja", "Media", "Alta"];
 
 const props = defineProps({
   id: {
-    type: Number,
+    type: String,
     required: true,
   },
   title: {
@@ -122,7 +122,7 @@ const props = defineProps({
     requirte: false,
   },
 });
-
+let idValue = ref(props.id);
 let titleValue = ref(props.title);
 let descriptionValue = ref(props.description);
 let dateValue = ref(props.deadline);
