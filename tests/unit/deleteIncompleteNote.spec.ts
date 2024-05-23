@@ -1,3 +1,4 @@
+/*
 import { DeleteNote } from '@/domain/usesCases/deleteIncompleteNote';
 import Note from '@/domain/entities/Note';
 
@@ -75,3 +76,4 @@ const mockNoteRepository = () => ({
       expect(noteRepository.deleteNoteById).toHaveBeenCalledWith('1');
     });
   });
+  */

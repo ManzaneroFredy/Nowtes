@@ -51,7 +51,8 @@
           @click="
             $emit(
               'showCompleteNoteDetailsComponent',
-              'completeNoteDetailsComponente'
+              'completeNoteDetailsComponente',
+              props.noteId
             )
           "
         ></v-btn>
